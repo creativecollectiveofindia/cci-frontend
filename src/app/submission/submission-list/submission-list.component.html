@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="media-body">
+      <h1 style="margin-left: 5px">Submissions</h1>
+      <div *ngIf="isCreator">
+        <select style="width: 200px; margin-left: 5px" autofocus="" class="form-control selectpicker" (change)="onChanges($event)">
+          <option value="" >Select Status</option>
+          <option [value]="data.value" *ngFor="let data of statusData">{{data.label}}</option>
+        </select>
+        <br>
+      </div>
+      <div class="alert alert-warning" *ngIf="submissionList.length == 0">No content found</div>
+      <table class="table table-borderless">
+        <tbody>
+          <tr *ngFor="let list of submissionList">
+            <td class="col-xs-12">
+              <h3 class="media-heading">{{list.title}}</h3>
+              <span class="text-primary" *ngIf="isCreator">Status - {{list.status}}</span>
+              <span *ngIf="isCreator && list.status == 'draft'">&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a routerLink="/submission_form/{{list.id}}">Update Submission</a>
+              </span>
+              <span *ngIf="isCreator && list.status != 'draft'">&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a routerLink="/submission_form/{{list.id}}">View Submission</a>
+                <br>
+              </span>
+              <span>Challenge - {{list.challenge_name}} </span><br>
+              <span class="text-justify">Topic - {{list.topic}}</span>
+              <br>
+              <span *ngIf="!isCreator">Creator - {{list.owner_name}}</span>
+              <br>
+              <span *ngIf="isReviwer">        
+                <a *ngIf="reviews[list.id] == 'submitted'" routerLink="/review/{{list.id}}">View Review </a>
+                <a *ngIf="reviews[list.id] != 'submitted'" routerLink="/review/{{list.id}}">Review Submission</a>
+              </span>
+              </td>
+              <td *ngIf="list.media_type==='image'" class="col-xs-12">
+                  <img class="myImg img-thumbnail" src="{{submissionFiles[list.id]}}">
+              </td>
+            </tr>
+        </tbody>
+      </table>
+      <p>
+        Pages: 
+        <a [routerLink]="" [class.disabled]="offset==0"(click)="getSubmissionList(true,false)">Previous </a>|
+        <a [routerLink]="" [class.disabled]="submissionList.length<limit" (click)="getSubmissionList(false,true)">Next</a>
+      </p>
+    </div>
+  </div>
+</div>

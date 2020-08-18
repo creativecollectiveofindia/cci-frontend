@@ -1,0 +1,442 @@
+<div id="container">
+	<div id="detail" class="row">
+		<div class="col-sm-12">
+			<div *ngIf="saveErrorMessage">
+				<div class="alert alert-warning" style="text-align: center;">
+					{{ saveErrorMessage }}
+				</div>
+			</div>
+			<div *ngIf="saveSuccessMessage" >
+				<div class="alert alert-success" style="text-align: center;">
+					{{ saveSuccessMessage }}
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4" id= "challengeDetail">
+			<div class="box">
+				<div class="review-heading">Creative Brief</div>
+				<div *ngIf="challengeDetail.title">
+					<h5><b> {{ challengeDetail.title }} </b></h5>
+				</div>
+				<div *ngIf="challengeDetail.introduction">
+					<b>INTRODUCTION</b><br>
+					<div [innerHTML]="challengeDetail.introduction" ></div>
+					<br>
+				</div>
+				<div *ngIf="challengeDetail.description">
+					<b>CREATIVE BRIEF</b><br>
+					<div [innerHTML]="challengeDetail.description" ></div>
+					<br>
+				</div>
+				<div *ngIf="challengeDetail.key_behaviour">
+					<b>Key behaviour</b><br>
+					<div [innerHTML]="challengeDetail.key_behaviour" ></div>
+					<br>
+				</div>
+				<div *ngIf="challengeDetail.good_to_have_information">
+					<b>Good to have information</b><br>
+					<div [innerHTML]="challengeDetail.good_to_have_information" ></div>
+					<br>
+				</div>
+				<div *ngIf="challengeDetail.challenge_goal">
+					<b>CHALLENGE GOAL</b><br>
+					<div [innerHTML]="challengeDetail.challenge_goal" ></div>
+					<br>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4" id="submissionDetail">
+			<div class="box">
+				<div class="review-heading">Submission</div>
+				<div class="submission-content">
+					<form class="ui form" [formGroup]="submissionForm">
+						<div class="form-group">
+							<label class="d-block">Title *
+							</label>
+							<div class="field">
+								<input autofocus="" formControlName="title"
+									class="form-control ng-pristine ng-valid ng-touched" type="text" placeholder="Enter title">
+								<div class="ui pointing error basic label below"
+									*ngIf="isSubmitted && submissionForm.controls['title'].errors && submissionForm.controls['title'].errors.required">
+									Title is required
+								</div>
+								<div class="ui pointing error basic label below"
+									*ngIf="isSubmitted && submissionForm.controls['title'].errors && submissionForm.controls['title'].errors.maxlength">
+									Title length should not exceed 150 characters
+								</div>
+							</div>
+						</div>
+						<div *ngIf="submittedOn">
+							<label>Submitted On: {{submittedOn | date:[ 'd MMM y hh:mm']}}</label>
+						</div>
+						<div *ngIf="submissionStatus">
+							<label>Status: {{submissionStatus | titlecase}}</label>
+						</div>
+						<div class="form-group">
+							<label class="d-block">Choose challenge *
+							</label>
+							<div class="field">
+								<select autofocus="" formControlName="challenge_category" class="form-control ng-pristine ng-valid ng-touched" (change)="getChallenges($event)">
+									<option value="" disabled>Choose challenge</option>
+									<option [value]="challenge.id" *ngFor="let challenge of categories">{{challenge.title}}</option>
+								</select>
+								<div *ngIf="isSubmitted && submissionForm.controls['challenge_category'].errors && submissionForm.controls['challenge_category'].errors.required">
+									<div class="error">
+										Challenge is required.
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="d-block">Choose Topic *
+							</label>
+							<div class="field">
+								<select autofocus="" formControlName="challenge" class="form-control ng-pristine ng-valid ng-touched" (change)="onChanges($event)" placeholder="Enter topic">
+									<option value="" disabled>Choose topic</option>
+									<option [value]="topic.id" *ngFor="let topic of topics">{{topic.title}}</option>
+								</select>
+								<div *ngIf="isSubmitted && submissionForm.controls['challenge'].errors && submissionForm.controls['challenge'].errors.required">
+									<div class="error">
+										Topic is required.
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="d-block">Choose media type *
+							</label>
+							<div class="field">
+								<select autofocus="" formControlName="media_type" class="form-control ng-pristine ng-valid ng-touched" (change)="selectFileType($event)">
+									<option value="" disabled>Choose media type</option>
+									<option [value]="media.value" *ngFor="let media of submissionMediaType">{{media.label}}</option>
+								</select>
+								<div *ngIf="isSubmitted && submissionForm.controls['media_type'].errors && submissionForm.controls['media_type'].errors.required">
+									<div class="error">
+										Media type is required.
+									</div>
+								</div>
+							</div>
+						</div>
+						<input autofocus="" formControlName="file" type="hidden">
+						<div class="form-group" >
+							<div class="field dropzone" appDnd >
+								<input autofocus=""  #fileDropRef id="fileDropRef" formControlName="hidden_file" (change)="onFileSelect($event)"
+								class="ng-pristine ng-valid ng-touched fileinput" type="file" accept="{{accept}}">
+								<img src ="assets\images\dragdrop.png">
+								<label for="fileDropRef" class="d-block filelabel">Browse for file
+								</label>
+								<div *ngIf="isSubmitted && submissionForm.controls['hidden_file'].errors && submissionForm.controls['hidden_file'].errors.required">
+									<div class="error">
+										File is required.
+									</div>
+								</div>
+							</div>
+						</div>
+						<input autofocus="" formControlName="file" type="hidden">
+						<div class="files-list">
+							<div class="single-file" *ngFor="let file of files; let i = index">
+								<div class="container">
+									<div class="row file-div-container">
+										<span class="col-sm-12">&nbsp;</span>
+										<span class="col-sm-10">
+											<h6 class="name">
+												<label>{{ file?.name }}</label>
+											</h6>
+											<p class="size">
+												<label>{{ formatBytes(file?.size) }}</label>
+											</p>
+											<div *ngIf="file.progress">
+												<div *ngIf="file.progress.status==='progress'">
+													<div class="progress" style="height: 20px;margin-bottom:20px;">
+														<div class="progress-bar" role="progressbar" [style.width.%]="file.progress.message" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{file.progress.message}}%
+													</div>
+												</div>
+											</div>
+									</div>
+									</span>
+									<span class="col-sm-2">
+									<img src="assets/images/ic-delete-file.svg" class="delete" width="20px" (click)="deleteFile(file)">
+									</span>
+								</div>
+							</div>
+						</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12 col-md-4" id= "submissionDetail">
+		<div class="box">
+			<form class="ui form" [formGroup]="submissionForm">
+				<div class="review-heading">Submission Details</div>
+				<h6>About the target audience (TG)</h6>
+				<div class="form-group">
+					<label class="d-block">Which income bracket your target audience belong to? *</label>
+					<div class="field">
+						<select autofocus="" formControlName="income_bracket" class="form-control ng-pristine ng-valid ng-touched">
+							<option value="" disabled>Select income bracket</option>
+							<option [value]="income.value" *ngFor="let income of submissionIncomeBracket">{{income.label}}</option>
+						</select>
+						<div *ngIf="isSubmitted && submissionForm.controls['income_bracket'].errors && submissionForm.controls['income_bracket'].errors.required">
+							<div class="error">
+								Income bracket is required.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" id="genderValue">
+					<label class="d-block">Are you targeting a specific gender? *</label>
+					<div class="field">
+						<select autofocus="" formControlName="gender" class="form-control ng-pristine ng-valid ng-touched">
+							<option value="" disabled>Select gender</option>
+							<option [value]="gender.value" *ngFor="let gender of submissionGender">{{gender.label}}</option>
+						</select>
+					</div>
+					<div class="mx-sm-4 mb-3" *ngIf="submissionForm.controls.gender.value == 'others'">
+						<label class="d-block">If other, specify:</label>
+						<input autofocus="" formControlName="gender_other" class="form-control ng-pristine ng-valid ng-touched" type="text" placeholder="Enter gender">
+					</div>
+					<div *ngIf="genderErrorMessage" >
+						<div class="error">
+							{{ genderErrorMessage }}
+						</div>
+					</div>
+					<div *ngIf="isSubmitted && submissionForm.controls['gender'].errors || submissionForm.controls['gender_other'].errors">
+						<div class="error">
+							Gender is required.
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="d-block">Which age group does your TG belong to? *</label>
+					<div class="field">
+						<select multiple autofocus="" formControlName="age_group" class="form-control ng-pristine ng-valid ng-touched">
+							<option value="" disabled>Select age group</option>
+							<option [value]="age.value" *ngFor="let age of submissionAgeGroup">{{age.label}}</option>
+						</select>
+						<div *ngIf="isSubmitted && submissionForm.controls['age_group'].errors">
+							<div class="error">
+								Age group is required.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="d-block">What educational background does your TG belong to?</label>
+					<div class="field">
+						<select multiple autofocus="" formControlName="educational_background" class="form-control ng-pristine ng-valid ng-touched">
+							<option value="" disabled>Select educational background</option>
+							<option [value]="edu.value" *ngFor="let edu of submissionEducation">{{edu.label}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group"  id="sectorValue">
+					<label class="d-block">Which sector does your TG work in?</label>
+					<div class="field">
+						<select autofocus="" formControlName="sector" class="form-control ng-pristine ng-valid ng-touched">
+							<option value="">Select sector</option>
+							<option [value]="sector.value" *ngFor="let sector of submissionSector">{{sector.label}}</option>
+						</select>
+						<div class="mx-sm-4 mb-3" *ngIf="submissionForm.controls.sector.value == 'other'">
+							<label class="d-block">If other, specify:</label>
+							<input autofocus="" formControlName="sector_other" class="form-control ng-pristine ng-valid ng-touched" type="text" placeholder="Enter sector">
+						</div>
+						<div *ngIf="sectorErrorMessage" >
+							<div class="error">
+								{{ sectorErrorMessage }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" id="targetAudienceCheckDiv">
+					<label class="d-block">Which profession/occupation does your TG represent? *
+					</label>
+					<h6>Select all that apply.</h6>
+					<div *ngIf="targetAudienceErrorMessage">
+						<div class="error">
+							{{ targetAudienceErrorMessage }}
+						</div>
+					</div>
+					<div class="form-group">
+						<div *ngFor="let submissionTargetAudience of submissionTargetAudiences">
+							<label>
+							<input type="checkbox" [value]="submissionTargetAudience.value" [disabled]="disableControls" [attr.checked]="selectedTG.indexOf(submissionTargetAudience.value) > -1 ? 'checked' : null" (change)="onCheckTargetAudience($event)">
+							{{submissionTargetAudience.label}}
+							</label>
+						</div>
+						<div class="ui pointing error basic label below"
+							*ngIf="isSubmitted && submissionForm.controls['target_audience'].errors && submissionForm.controls['target_audience'].errors.required">
+							Select target audience
+						</div>
+						<div class="mx-sm-4 mb-3" *ngIf="selectedTG.indexOf('other') != -1">
+							<label class="d-block">If other, specify:</label>
+							<input autofocus="" formControlName="target_audience_other" class="form-control ng-pristine ng-valid ng-touched" type="text" placeholder="Enter target audience">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="d-block">Which type of location does your TG belong to? *
+					</label>
+					<div class="field">
+						<select autofocus="" formControlName="geography" class="form-control ng-pristine ng-valid ng-touched">
+							<option value="" disabled>Select location</option>
+							<option [value]="submissionGegraphy.value" *ngFor="let submissionGegraphy of submissionGeographies">{{submissionGegraphy.label}}</option>
+						</select>
+						<div *ngIf="isSubmitted && submissionForm.controls['geography'].errors">
+							<div class="error">
+								Location is required.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" id="specialConditionValue">
+					<label class="d-block">Do any special condition(s) apply to your TG?</label>
+					<div class="field">
+						<select autofocus="" formControlName="special_condition" class="form-control ng-pristine ng-valid ng-touched">
+							<option value="">Select special condition</option>
+							<option [value]="special.value" *ngFor="let special of submissionSpecialCondition">{{special.label}}</option>
+						</select>
+						<div class="mx-sm-4 mb-3" *ngIf="submissionForm.controls.special_condition.value == 'other'">
+							<label class="d-block">If other, specify:</label>
+							<input autofocus="" formControlName="special_condition_other" class="form-control ng-pristine ng-valid ng-touched" type="text" placeholder="Enter special condition">
+						</div>
+						<div *ngIf="specialAudienceErrorMessage">
+							<div class="error">
+								{{ specialAudienceErrorMessage }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" id="langCheckDiv">
+					<label class="d-block">Which languages are you targeting? *
+					</label>
+					<h6>Select any TWO that apply.</h6>
+					<div>
+						<div *ngIf="langErrorMessage">
+							<div class="error">
+								{{ langErrorMessage }}
+							</div>
+						</div>
+					</div>
+					<div class="field">
+						<div *ngFor="let submissionLanguage of submissionLanguages">
+							<label>
+							<input type="checkbox" [value]="submissionLanguage.value" [disabled]="disableControls" [attr.checked]="checkedValuesLanguages.indexOf(submissionLanguage.value) > -1 ? 'checked' : null" (change)="onCheckLanguages($event)">
+							{{submissionLanguage.label}}
+							</label>
+						</div>
+						<div class="ui pointing error basic label below "
+							*ngIf="isSubmitted && submissionForm.controls['language'].errors && submissionForm.controls['language'].errors.required">
+							Select any two language
+						</div>
+						<div class="mx-sm-4 mb-3" 
+						*ngIf="checkedValuesLanguages.indexOf('other') != -1">
+							<label class="d-block">If other, specify:</label>
+							<input autofocus="" formControlName="language_other" class="form-control ng-pristine ng-valid ng-touched" type="text" placeholder="Enter language">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="d-block">Which region/state does your TG belong to? *
+					</label>
+					<div class="field">
+						<select autofocus="" formControlName="region" class="form-control ng-pristine ng-valid ng-touched">
+							<option value="" disabled>Select Region</option>
+							<option [value]="submissionRegion.value" *ngFor="let submissionRegion of submissionRegions">{{submissionRegion.label}}</option>
+						</select>
+						<div *ngIf="isSubmitted && submissionForm.controls['region'].errors">
+							<div class="error">
+								Region is required.
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div *ngIf="submissionStatus == 'draft'">
+						<h6>
+							TERMS OF SUBMISSION<br><br>
+							I know that plagiarism means taking and using the ideas, writings, works or graphics of another as if they were one's own. I know that plagiarism not only includes verbatim copying, but also the extensive use of another person's ideas without proper acknowledgement (which includes the proper use of quotation marks). I know that plagiarism covers this sort of use of material found in textual sources and from the internet.
+							<br><br>
+							I understand that my submission must be accurately and visibly referenced if I have used any material (text, images, videos) that is not my own.<br>
+							I confirm that this submission is my own work and is not plagiarised from any other person's work (published or unpublished).<br><br>
+						</h6>
+						<h6><input type="checkbox" (change)="check($event)"/>&nbsp;I have read and understood the above.</h6>
+						<button id="submitSubmission" href="#submitSubmissionModel" style="display:none;" data-toggle="modal" ></button>
+						<button (click)="checkSubmission('submitted');" style="margin-right: 5px;" [disabled]=" checkSubmit!=='true'"  class="btn trigger-btn btn-success">Submit</button>
+						<button (click)="resetSubmission()" class="btn">Reset</button><br><br>
+				</div>
+				<div *ngIf="submissionStatus == 'submitted' || submissionStatus == 'published'">
+					<button href="#withdrawModel" class="btn trigger-btn btn-primary" data-toggle="modal" [disabled]="submissionForm.controls.withdraw_reasons.value==''">Withdraw Submission</button>
+					<br><br>
+				</div>
+				<div *ngIf="submissionStatus == 'withdrawn' || submissionStatus == 'submitted' || submissionStatus == 'published'">
+					<div class="form-group" id="reasonValue">
+						<div class="field">
+							<label>Withdraw Reason</label>
+							<select autofocus="" formControlName="withdraw_reasons" class="form-control ng-pristine ng-valid ng-touched" placeholder="Select Reason">
+								<option value="" disabled>Select reason</option>
+								<option [value]="reason.value" *ngFor="let reason of submissionWithdrawReasons">{{reason.label}}</option>
+							</select>
+							<div *ngIf="submissionForm.controls['withdraw_reasons'].errors">
+								<div class="error" placeholder="Select Reason">
+									Withdraw reason is required.
+								</div>
+							</div>
+						</div>
+						<div *ngIf="reasonsErrorMessage">
+							<div class="error">
+								{{ reasonsErrorMessage }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="withdrawModel" class="modal fade">
+					<div class="modal-dialog modal-confirm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h6>Do you really want to withdraw this submission? This process cannot be undone.</h6>
+								<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-info" data-dismiss="modal">Cancel</button>
+								<button (click)="updateSubmission('withdrawn')" data-dismiss="modal" class="btn btn-danger">Withdraw</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="submitSubmissionModel" class="modal fade">
+					<div class="modal-dialog modal-confirm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h6>Do you really want to submit this form? You will not be able to edit.</h6>
+								<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-info" data-dismiss="modal">Cancel</button>
+								<button (click)="updateSubmission('submitted')" data-dismiss="modal" class="btn btn-danger">Ok</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="submissionSuccessModel" class="modal fade">
+					<div class="modal-dialog modal-confirm">
+						<div class="modal-content center">
+							<div class="modal-header">
+								<h6>Your creative is submitted successfully.</h6>
+								<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							</div>
+							<div class="modal-footer" style="display: block;">
+								<button data-dismiss="modal" (click)="redirectToListView()" class="btn btn-success">Ok</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button id="submissionSuccessModelBtn" href="#submissionSuccessModel" style="display:none;" data-toggle="modal" ></button>
+				<div *ngIf="loading==true" id="preloader">
+					<div id="loader"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

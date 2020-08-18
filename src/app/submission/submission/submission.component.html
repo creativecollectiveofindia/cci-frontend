@@ -1,0 +1,382 @@
+<div id="container">
+	<div id="detail" class="row">
+		<div class="col-sm-12 col-md-4 rightbox">
+			<button routerLink="/submission-list" class="btn btn-primary btn-mr-15">&laquo; Back to list</button>
+			<br><br>
+		</div>
+		<div class="col-sm-12">
+			<div class="alert alert-danger" *ngIf="reviewError" style="text-align:center;"> {{reviewError}} </div>
+			<div class="alert alert-success" *ngIf="reviewSuccessMsg" style="text-align:center;"> {{reviewSuccessMsg}} </div>
+		</div>
+		<div class="col-sm-12 col-md-4 rightbox" id="challengeDetail">
+			<div class="box">
+				<div class="review-heading">Creative Brief</div>
+				<h4 *ngIf="this.challengeDetail.title"><b> {{this.challengeDetail.title}} </b></h4>
+				<div *ngIf="this.challengeDetail.introduction"> <b>INTRODUCTION</b>
+					<br>
+					<div [innerHTML]="this.challengeDetail.introduction"></div>
+					<br> </div>
+				<div *ngIf="this.challengeDetail.description"> <b>CREATIVE BRIEF</b>
+					<br>
+					<div [innerHTML]="this.challengeDetail.description"></div>
+					<br> </div>
+				<div *ngIf="challengeDetail.key_behaviour">
+					<b>Key behaviour</b><br>
+					<div [innerHTML]="challengeDetail.key_behaviour" ></div>
+					<br>
+				</div>
+				<div *ngIf="challengeDetail.good_to_have_information">
+					<b>Good to have information</b><br>
+					<div [innerHTML]="challengeDetail.good_to_have_information" ></div>
+					<br>
+				</div>
+				<div *ngIf="this.challengeDetail.challenge_goal"> <b> CHALLENGE GOAL</b>
+					<br>
+					<div [innerHTML]="this.challengeDetail.challenge_goal"></div>
+					<br> </div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4 leftbox" id="submissionDetail">
+			<div class="box">
+				<div class="review-heading">Submission</div>
+				<div class="submission-content" *ngIf="this.submissionDetail">
+					<div *ngIf="this.submissionDetail.title"> Title: <span style="font-weight: bold;">{{ submissionDetail.title}}</span> </div>
+					<div *ngIf="this.submissionDetail.modified_on"> Submitted On: {{ submissionDetail.modified_on | date:[ 'MMM d, y, h:mm'] }} </div>
+					<div *ngIf="this.submissionDetail.status"> Status: {{ humanize(submissionDetail.status) }} </div>
+					<div *ngIf="this.submissionDetail.creative_testing"> Creative Testing: {{this.submissionDetail.creative_testing}} </div>
+					<br>
+					<div *ngIf="this.submissionDetail.challenge_category && this.submissionDetail.challenge_category.title"> Challenge: {{this.submissionDetail.challenge_category.title}} </div>
+					<div *ngIf="this.challengeDetail.title"> Challenge Topic: {{this.challengeDetail.title}} </div>
+					<div *ngIf="this.submissionDetail.key_behaviour"> Key Behaviour: {{this.submissionDetail.key_behaviour}} </div>
+					<br>
+					<div *ngIf="this.submissionDetail.target_audience?.length"> Target Audience: {{humanize(submissionDetail.target_audience)}} </div>
+					<div *ngIf="this.submissionDetail.language?.length"> Language: {{humanize(this.submissionDetail.language)}} </div>
+					<div *ngIf="this.submissionDetail.geography?.length"> Location: {{humanize(this.submissionDetail.geography)}} </div>
+					<div *ngIf="this.submissionDetail.region?.length"> Region: {{humanize(this.submissionDetail.region)}} </div>
+					<br>
+				</div>
+				<div *ngIf="this.submissionFiles">
+					<div *ngIf="this.submissionDetail.media_type === 'image'" class="row">
+						<div id="imgModal">
+							<div *ngFor="let submissionFile of this.submissionFiles" class="col-sm-12 col-md-12">
+								<div (click)="previewImage(submissionFile.directus_files_id.data.full_url)"> <img class="myImg img-thumbnail" src="{{ submissionFile.directus_files_id.data.thumbnails[4].url }}"> </div>
+							</div>
+							<div id="myModal" class="modal">
+								<div (click)="closePreview()" class="close">&times;</div> <img class="modal-content" id="myModalImg">
+								<div id="caption"></div>
+							</div>
+						</div>
+					</div>
+					<div *ngIf="this.submissionDetail.media_type === 'video'" class="row">
+						<div *ngFor="let submissionFile of this.submissionFiles" class="col-sm-12">
+							<video controls style="width: inherit;">
+								<source src="{{ submissionFile.directus_files_id.data.full_url }}" type="video/mp4"> Your browser does not support HTML video. </video>
+						</div>
+					</div>
+					<div *ngIf="this.submissionDetail.media_type === 'audio'" class="row">
+						<div *ngFor="let submissionFile of this.submissionFiles" class="col-sm-12">
+							<audio controls>
+								<source src="{{ submissionFile.directus_files_id.data.full_url }}" type="audio/mpeg"> Your browser does not support the audio tag. </audio>
+						</div>
+					</div>
+					<div *ngIf="this.submissionDetail.media_type === 'document'" class="row">
+						<div *ngFor="let submissionFile of this.submissionFiles" class="col-sm-12"> <a href="{{ submissionFile.directus_files_id.data.full_url }}" target="_blank">{{ submissionFile.directus_files_id.filename_download }}</a> </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4" id="ReviewForm">
+			<div class="page-desc">
+				<form class="ui form" [formGroup]="reviewForm">
+					<div class="review-heading pull-left">Review Form</div>
+					<div *ngIf="!this.submitted">
+						<div>
+							<b>Review to be Completed by: </b><p class="refer_submission">{{ this.lastReviewDate | date:[ 'MMM d, y'] }}</p>
+						</div>
+					</div>
+					<hr>
+					<div class=" field_set">
+						<h5><b> Evaluation Criteria:Target Audience(TG)</b></h5>
+						<div class="form-group">
+							<label class="d-block"> <b>
+									Does the creative indicate, address the Target audience?<br>
+									<p class= "refer_submission"> Refer Submission.*[Score 10] </p>
+								</b>
+								<p *ngIf="this.submissionDetail.target_audience?.length"> The Target audience for this submission is <strong>"{{humanize(submissionDetail.target_audience)}}"</strong></p>
+							</label>
+							<div class="field" *ngIf="reviewFormFields['target_audience']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['target_audience']['options']['choices']">
+									<label class=" form-check-label" for="target_audience_{{choice.value}}">
+										<input type="radio" class="" id="target_audience_{{choice.value}}" formControlName="target_audience" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below  " *ngIf="isSubmitted && reviewForm.controls['target_audience'].errors && reviewForm.controls['target_audience'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group">
+							<label class="d-block"><b>If applicable, is the Target Audience represented correctly in Submission?</b>
+								<p class="refer_submission"> Refer Submission.*[Score 15] </p>
+							</label>
+							<div class="field" *ngIf="reviewFormFields['target_audience_representation']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['target_audience_representation']['options']['choices']">
+									<label class=" form-check-label" for="target_audience_representation_{{choice.value}}">
+										<input type="radio" class="" id="target_audience_representation_{{choice.value}}" formControlName="target_audience_representation" (change)="this.onChangeTargetAudienceRep()" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['target_audience_representation'].errors && reviewForm.controls['target_audience_representation'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group" [hidden]="reviewForm.controls.target_audience_representation.value != 'no'">
+							<label class="d-block" for="target_audience_nonrep_reason">If NO, select reasons that apply </label>
+							<div class="field" *ngIf="reviewFormFields['target_audience_nonrep_reason']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['target_audience_nonrep_reason']['options']['choices']">
+									<label class=" form-check-label" for="target_audience_nonrep_reason_{{choice.value}}">
+										<input type="radio" class="" id="target_audience_nonrep_reason_{{choice.value}}" formControlName="target_audience_nonrep_reason" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['target_audience_nonrep_reason'].errors && reviewForm.controls['target_audience_nonrep_reason'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group" [hidden]="reviewForm.controls.target_audience_representation.value != 'no'">
+							<label class="d-block">If NO, mention any areas of concern </label>
+							<div class="field">
+								<textarea autofocus="" formControlName="areas_of_concern" class="form-control" placeholder="This field is not mandatory but optional."></textarea> </div>
+							<br>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['areas_of_concern'].errors && reviewForm.controls['areas_of_concern'].errors.required"> Please fill the area of concern </div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="d-block"> <b>
+									Will the TG relate to the Submission?*
+									<p class= "refer_submission"> Refer Submission*[Score 15] </p>
+								</b> </label>
+							<div class="field" *ngIf="reviewFormFields['related']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['related']['options']['choices']">
+									<label class=" form-check-label" for="related_{{choice.value}}">
+										<input type="radio" class="" id="related_{{choice.value}}" formControlName="related" (change)="this.onChangeRelated()" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['related'].errors && reviewForm.controls['related'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group" [hidden]="reviewForm.controls.related.value != 'no'">
+							<label class="d-block" for="target_audience_nonrel_reason">If NO, select reasons that apply </label>
+							<div class="field" *ngIf="reviewFormFields['target_audience_nonrel_reason']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['target_audience_nonrel_reason']['options']['choices']">
+									<label class=" form-check-label" for="target_audience_nonrel_reason_{{choice.value}}">
+										<input type="radio" class="" id="target_audience_nonrel_reason_{{choice.value}}" formControlName="target_audience_nonrel_reason" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['target_audience_nonrel_reason'].errors && reviewForm.controls['target_audience_nonrel_reason'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group" [hidden]="reviewForm.controls.related.value != 'no'">
+							<label class="d-block">If NO, mention any areas of concern</label>
+							<div class="field">
+								<textarea autofocus="" formControlName="areas_of_concern1" class="form-control" placeholder="This field is not mandatory but optional."></textarea> </div>
+							<br>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['areas_of_concern1'].errors && reviewForm.controls['areas_of_concern1'].errors.required"> Please fill the area of concern </div>
+						</div>
+					</div>
+					<hr>
+					<div class="field_set">
+						<h5><b>Evaluation Criteria: Content</b></h5>
+						<div class="form-group">
+							<label class="d-block"><b>Does the creative indicate, clearly convey the 'Key Behaviour'?</b>*
+								<p class="refer_submission"> Refer Submission*[Score 30] </p>
+								<p *ngIf="this.submissionDetail.key_behaviour?.length"> The Key Behaviour for this submission is <strong>{{this.submissionDetail.key_behaviour}}</strong>. </p>
+							</label>
+							<div class="field" *ngIf="reviewFormFields['key_behaviour']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['key_behaviour']['options']['choices']">
+									<label class=" form-check-label" for="key_behaviour_{{choice.value}}">
+										<input type="radio" class="" id="key_behaviour_{{choice.value}}" formControlName="key_behaviour" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['key_behaviour'].errors && reviewForm.controls['key_behaviour'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="notebox" *ngIf="reviewForm.controls['key_behaviour'].value=='no'">
+							<div class="form-group">
+								<label class="d-block"><b>Is the Key Behaviour information represented correctly?</b></label>
+								<div class="field" *ngIf="reviewFormFields['key_behaviour_representation']">
+									<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['key_behaviour_representation']['options']['choices']">
+										<label class=" form-check-label" for="key_behaviour_representation_{{choice.value}}">
+											<input type="radio" class="" id="key_behaviour_representation_{{choice.value}}" formControlName="key_behaviour_representation" (change)="this.onChangeKeyBehaviourRepresentation()" [value]="choice.value">&nbsp;{{choice.label}}
+										</label>
+									</div>
+								</div>
+								<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['key_behaviour_representation'].errors && reviewForm.controls['key_behaviour_representation'].errors.required"> Please select either of the options </div>
+							</div>
+							<div class="form-group" [hidden]="reviewForm.controls.key_behaviour_representation.value != 'no'">
+								<label class="d-block" for="NoAudience">If NO, select reasons that apply </label>
+								<div class="field" *ngIf="reviewFormFields['key_behaviour_no_rep_reason']">
+									<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['key_behaviour_no_rep_reason']['options']['choices']">
+										<label class=" form-check-label" for="key_behaviour_no_rep_reason_{{choice.value}}">
+											<input type="radio" class="" id="key_behaviour_no_rep_reason_{{choice.value}}" formControlName="key_behaviour_no_rep_reason" [value]="choice.value">&nbsp;{{choice.label}}
+										</label>
+									</div>
+								</div>
+								<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['key_behaviour_no_rep_reason'].errors && reviewForm.controls['key_behaviour_no_rep_reason'].errors.required"> Please select either of the options </div>
+							</div>
+							<div class="form-group" [hidden]="reviewForm.controls.key_behaviour_representation.value != 'no'">
+								<label class="d-block">If NO, mention any areas of concern</label>
+								<div class="field">
+									<textarea autofocus="" formControlName="key_behaviour_areas_of_concern" class="form-control" placeholder="This field is not mandatory but optional."></textarea></div>
+								<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['key_behaviour_areas_of_concern'].errors && reviewForm.controls['key_behaviour_areas_of_concern'].errors.required"> Please fill the area of concern </div>
+							</div>
+							<div style="color: red;font-size:16px;"><b> NOTE: SELECTING 'NO' ON THIS CRITERIA WILL RESULT IN REJECTING OF THE CONTENT</b></div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="d-block"><b>Does the creative include the 'Good to have Information'?</b>
+								<p class="refer_submission"> Refer Submission*[Score 10] </p>
+							</label>
+							<div class="field" *ngIf="reviewFormFields['good_to_have_information']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['good_to_have_information']['options']['choices']">
+									<label class=" form-check-label" for="good_to_have_information_{{choice.value}}">
+										<input type="radio" class="" id="good_to_have_information_{{choice.value}}" formControlName="good_to_have_information" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['good_to_have_information'].errors && reviewForm.controls['good_to_have_information'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="notebox" *ngIf="reviewForm.controls['good_to_have_information'].value=='yes'">
+							<div class="form-group">
+								<label class="d-block"><b>Is Good to have Information represented correctly?</b></label>
+								<div class="field" *ngIf="reviewFormFields['good_to_have_information_representation']">
+									<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['good_to_have_information_representation']['options']['choices']">
+										<label class=" form-check-label" for="good_to_have_information_representation_{{choice.value}}">
+											<input type="radio" class="" id="good_to_have_information_representation_{{choice.value}}" formControlName="good_to_have_information_representation" (change)="this.onChangeGoodToHaveInformationRepresentation()" [value]="choice.value">&nbsp;{{choice.label}}
+										</label>
+									</div>
+								</div>
+								<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['good_to_have_information_representation'].errors && reviewForm.controls['good_to_have_information_representation'].errors.required"> Please select either of the options </div>
+							</div>
+							<div class="form-group" [hidden]="reviewForm.controls.good_to_have_information_representation.value != 'no'">
+								<label class="d-block" for="good_to_have_information_norep_reason">If NO, select reasons that apply</label>
+								<div class="field" *ngIf="reviewFormFields['good_to_have_information_norep_reason']">
+									<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['good_to_have_information_norep_reason']['options']['choices']">
+										<label class=" form-check-label" for="good_to_have_information_norep_reason_{{choice.value}}">
+											<input type="radio" class="" id="good_to_have_information_norep_reason_{{choice.value}}" formControlName="good_to_have_information_norep_reason" [value]="choice.value">&nbsp;{{choice.label}}
+										</label>
+									</div>
+								</div>
+								<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['good_to_have_information_norep_reason'].errors && reviewForm.controls['good_to_have_information_norep_reason'].errors.required"> Please select either of the options </div>
+							</div>
+							<div class="form-group" [hidden]="reviewForm.controls.good_to_have_information_representation.value != 'no'">
+								<label class="d-block">If NO, mention any areas of concern</label>
+								<div class="field">
+									<textarea autofocus="" formControlName="good_to_have_norep_reason" class="form-control" placeholder="This field is not mandatory but optional."></textarea> </div>
+								<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['good_to_have_norep_reason'].errors && reviewForm.controls['good_to_have_norep_reason'].errors.required"> Please fill the area of concern </div>
+							</div>
+							<div style="color: red;font-size:16px;"><b> NOTE: SELECTING 'NO' ON THIS CRITERIA WILL RESULT IN REJECTING OF THE CONTENT</b></div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="d-block"><b>Does the creative clearly portray the situation when the key behaviour must be practiced?</b>
+								<p class="refer_submission"> Refer Submission* </p>
+							</label>
+							<div class="field" *ngIf="reviewFormFields['key_behaviour_practice']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['key_behaviour_practice']['options']['choices']">
+									<label class=" form-check-label" for="key_behaviour_practice_{{choice.value}}">
+										<input type="radio" class="" id="key_behaviour_practice_{{choice.value}}" formControlName="key_behaviour_practice" (change)="this.onChangeKeyBehaviourPractice()" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['key_behaviour_practice'].errors && reviewForm.controls['key_behaviour_practice'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group" [hidden]="reviewForm.controls.key_behaviour_practice.value != 'no'">
+							<label class="d-block" for="key_behaviour_no_practiced">If NO, select reasons that apply</label>
+							<div class="field" *ngIf="reviewFormFields['key_behaviour_no_practiced']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['key_behaviour_no_practiced']['options']['choices']">
+									<label class=" form-check-label" for="key_behaviour_no_practiced_{{choice.value}}">
+										<input type="radio" class="" id="key_behaviour_no_practiced_{{choice.value}}" formControlName="key_behaviour_no_practiced" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['key_behaviour_no_practiced'].errors && reviewForm.controls['key_behaviour_no_practiced'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group" [hidden]="reviewForm.controls.key_behaviour_practice.value != 'no'">
+							<label class="d-block">If NO, mention any areas of concern</label>
+							<div class="field">
+								<textarea autofocus="" formControlName="key_behaviour_nopracticed_concern" class="form-control" placeholder="This field is not mandatory but optional."></textarea></div>
+							<br>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['key_behaviour_nopracticed_concern'].errors && reviewForm.controls['key_behaviour_nopracticed_concern'].errors.required"> Please fill the area of concern </div>
+						</div>
+					</div>
+					<hr>
+					<div class=" field_set">
+						<h5><b>Evaluation Criteria: Overall</b></h5>
+						<div class="form-group">
+							<label class="d-block"><b>Do you think will be compelled to wash their hands after seeing this creative? Rate and select the wow/impact factor of the submission</b>
+								<p class="refer_submission"> Refer Submission*[Score 10] </p>
+							</label>
+							<div class="field" *ngIf="reviewFormFields['evaluation_criteria']">
+								<div class="custom-control custom-radio" *ngFor="let choice of reviewFormFields['evaluation_criteria']['options']['choices']">
+									<label class=" form-check-label" for="evaluation_criteria_{{choice.value}}">
+										<input type="radio" class="" id="evaluation_criteria_{{choice.value}}" formControlName="evaluation_criteria" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['evaluation_criteria'].errors && reviewForm.controls['evaluation_criteria'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group">
+							<label class="d-block"><b>Does the submission have pan-india response?</b>
+								<p class="refer_submission">*[Score 05] </p>
+							</label>
+							<div class="field" *ngIf="reviewFormFields['pan_india']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['pan_india']['options']['choices']">
+									<label class=" form-check-label" for="pan_india_{{choice.value}}">
+										<input type="radio" class="" id="pan_india_{{choice.value}}" formControlName="pan_india" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['pan_india'].errors && reviewForm.controls['pan_india'].errors.required"> Please select either of the options </div>
+						</div>
+						<div class="form-group">
+							<label class="d-block"><b>Does the submission apply uniquely to any specific community?</b>
+								<p class="refer_submission">*[Score 05] </p>
+							</label>
+							<div class="field" *ngIf="reviewFormFields['apply_to_specific_community']">
+								<div class="custom-control custom-radio custom-control-inline" *ngFor="let choice of reviewFormFields['apply_to_specific_community']['options']['choices']">
+									<label class=" form-check-label" for="apply_to_specific_community_{{choice.value}}">
+										<input type="radio" class="" id="apply_to_specific_community_{{choice.value}}" formControlName="apply_to_specific_community" [value]="choice.value">&nbsp;{{choice.label}}
+									</label>
+								</div>
+							</div>
+							<div class="ui pointing error basic label below " *ngIf="isSubmitted && reviewForm.controls['apply_to_specific_community'].errors && reviewForm.controls['apply_to_specific_community'].errors.required"> Please select either of the options </div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input autofocus="" formControlName="submission_id" type="hidden"> </div>
+
+					<div *ngIf="!this.submitted">
+						<button [disabled]="this.submitted" (click)="cancelReview()" class="btn">Reset</button>
+						<br> 
+					</div>
+					<br>
+					<P *ngIf="!this.submitted"><b>'Submit Review' will be your final submission. Once submitted you can not modify this review.
+						</b></P>
+					<br>
+					<div *ngIf="!this.submitted">
+						<button [disabled]="this.submitted" (click)="updateReview()" class="btn trigger-btn btn-primary" data-toggle="modal">Submit Review</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						<button href="#subModal" hidden="hidden" data-toggle="modal" id="reviewSuccessBtn">hidden</button>
+					</div>
+					<div id="subModal" class="modal fade">
+						<div class="modal-dialog modal-confirm">
+							<div class="modal-content">
+								<div class="modal-header">			
+									<h6>Your review is submitted successfully.</h6>
+					                <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div>
+									<button routerLink="/submission-list" data-dismiss="modal" class="btn btn-success">Ok</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

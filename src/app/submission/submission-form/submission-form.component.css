@@ -1,0 +1,81 @@
+.file-div-container{
+    margin-bottom: 15px;
+    border-style: dashed;
+    border-width: 1px;
+    border-color: #979797;
+}
+
+.leftbox {
+    background-color: #FFF;
+    color:#FFF;
+    height:100%;
+}
+.middlebox{
+    padding :20px;
+    padding-top :0;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-x: auto;
+    height: 100%;
+    /* height: 485px; */
+}
+.rightbox{
+  padding-left :20px;
+    height:100%;
+}
+
+h1{
+    color:#000;
+    text-align:center;
+}
+h1.sticky{
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 27px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+}
+
+h5{
+  color:#B03B36;
+}
+
+.refer_submission{
+  color:#B03B36;
+}
+
+#detail {
+    width:100%;
+    margin:40px, 40px;
+    padding:25px;
+    background-color: #fff;
+}
+
+.submission-content{
+  background-color: #5c5b5b;
+  padding:20px;
+}
+
+.submission-content label{
+  color: #fff;
+}
+
+hr{
+  background-color:#a5a4a4;
+}
+
+.formlable {
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 30px;
+}
+
+.review-heading{
+  font-size: 36px !important;
+  color: #212529;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+

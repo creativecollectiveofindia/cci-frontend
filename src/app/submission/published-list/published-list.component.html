@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="media-body">
+        <h1>Featured Content</h1><br>
+        <div class="alert alert-warning" *ngIf="submissionList.length == 0">No content found</div>
+        <ul class="list-unstyled" *ngFor="let list of submissionList">
+          <div class="row">
+            <div class="col-xs-12 col-md-8">
+              <li><h3 class="media-heading">{{list.title}}</h3></li>
+              <p class="text-left text-justify"><span>Challenge - {{list.challenge_name}} </span></p>
+              <p class="text-left text-justify"><span>Topic - {{list.topic}} </span></p>
+              <p class="text-left text-justify"><span>Creator - {{list.owner_name}}</span></p>
+              <p><button class="btn btn-outline-primary" routerLink="/published-detail/{{list.id}}">View Submission</button></p>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <div *ngIf="list.media_type === 'image'">
+                <img class="myImg img-thumbnail" src="{{submissionFiles[list.id]}}">
+              </div>
+            </div>
+          </div>
+          <hr>
+        </ul>
+        <br>
+        <p>
+          Pages: 
+          <a [routerLink]="" [class.disabled]="offset==0"(click)="getSubmissionList(true,false)">Previous </a>|
+          <a [routerLink]="" [class.disabled]="submissionList.length<limit" (click)="getSubmissionList(false,true)">Next</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div> 
+
