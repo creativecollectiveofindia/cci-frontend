@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { CollectionService } from '../../services/collection.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { CollectionService } from "../../services/collection.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: 'app-published-detail',
-  templateUrl: './published-detail.component.html',
-  styleUrls: ['./published-detail.component.css']
+  selector: "app-published-detail",
+  templateUrl: "./published-detail.component.html",
+  styleUrls: ["./published-detail.component.css"],
 })
 export class PublishedDetailComponent implements OnInit {
-
   submissionDetail: any = [];
   challengeDetail: any = [];
   categoryDetail: any = [];
   submissionFiles: any = [];
-  submissionId = '';
+  submissionId = "";
 
-  constructor(private CollectionService: CollectionService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private CollectionService: CollectionService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.submissionId = this.activatedRoute.snapshot.params.submission_id;
@@ -23,7 +25,10 @@ export class PublishedDetailComponent implements OnInit {
   }
 
   getSubmission() {
-    this.CollectionService.getItem('submission', this.submissionId+'?fields=*.*').subscribe(data => {
+    this.CollectionService.getItem(
+      "submission",
+      this.submissionId + "?fields=*.*"
+    ).subscribe((data) => {
       this.submissionDetail = data.data;
       this.challengeDetail = data.data.challenge;
       this.categoryDetail = data.data.challenge_category;
@@ -32,44 +37,45 @@ export class PublishedDetailComponent implements OnInit {
   }
 
   getSubmissionFiles(submissionId) {
-    this.CollectionService.getItems('submission_directus_files', `?filter[submission_id][eq]=${submissionId}&fields=directus_files_id.*`).subscribe(data => {
+    this.CollectionService.getItems(
+      "submission_directus_files",
+      `?filter[submission_id][eq]=${submissionId}&fields=directus_files_id.*`
+    ).subscribe((data) => {
       this.submissionFiles = data.data;
-    })
+    });
   }
 
-  humanize(data){
+  humanize(data) {
     var i = 0;
-    if(Array.isArray(data)){
-      for (i=0; i<data.length; i++) {
-        data[i] = data[i].replace('_', ' ').replace(/(?:^|\s)\S/g, a => a.toUpperCase());
-          }
-          return data.filter(Boolean);
-    }else{
-      if (data != undefined)
-      {
-        return data.replace(/(?:^|\s)\S/g, a => a.toUpperCase());
+    if (Array.isArray(data)) {
+      for (i = 0; i < data.length; i++) {
+        data[i] = data[i]
+          .replace("_", " ")
+          .replace(/(?:^|\s)\S/g, (a) => a.toUpperCase());
+      }
+      return data.filter(Boolean);
+    } else {
+      if (data != undefined) {
+        return data.replace(/(?:^|\s)\S/g, (a) => a.toUpperCase());
       }
 
       return "";
     }
   }
 
-  previewImage (imgSrc){
+  previewImage(imgSrc) {
     let modal = document.getElementById("myModal");
     let modalImg = document.getElementById("myModalImg");
     modal.style.display = "block";
 
-    if ((modalImg as HTMLImageElement).src != undefined)
-    {
+    if ((modalImg as HTMLImageElement).src != undefined) {
       (modalImg as HTMLImageElement).src = imgSrc;
     }
   }
 
-  closePreview (){
+  closePreview() {
     let modal = document.getElementById("myModal");
     modal.style.display = "none";
     let modalImg = document.getElementById("myModalImg");
   }
- 
 }
-

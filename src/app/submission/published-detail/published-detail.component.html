@@ -1,89 +1,127 @@
 <div id="container" class="container">
-	<div class="row">
-		<div class="col-sm-12 col-md-8 center review-heading"><h1>Content details</h1></div>
-		<div class="col-sm-12 col-md-8 center">
-			<div class="box">
-				<div class="submission-content">
-					<div *ngIf="this.submissionDetail.title">
-						Title: <span style="font-weight: bold;">{{ submissionDetail.title}}</span>
-					</div>
-					<div *ngIf="this.submissionDetail.modified_on">
-						Submitted On: {{ submissionDetail.modified_on | date:[ 'MMM d, y, h:mm'] }}
-					</div>
-					<div *ngIf="this.submissionDetail.status">
-						Status: {{ humanize(submissionDetail.status) }}
-					</div>
-					<div *ngIf="this.submissionDetail.creative_testing">
-						Creative Testing: {{this.submissionDetail.creative_testing}}
-					</div>
-					<br>
-					<div *ngIf="this.categoryDetail.title">
-						Challenge: {{this.categoryDetail.title}}
-					</div>
-					<div *ngIf="this.challengeDetail.title">
-						Topic: {{this.challengeDetail.title}}
-					</div>
-					<div *ngIf="this.submissionDetail.key_behaviour">
-						Key Behaviour: {{this.submissionDetail.key_behaviour}}
-					</div>
-					<br>
-					<div *ngIf="this.submissionDetail.target_audience?.length">
-						Target Audience: {{humanize(submissionDetail.target_audience)}}
-					</div>
-					<div *ngIf="this.submissionDetail.language?.length">
-						Language: {{humanize(this.submissionDetail.language)}}
-					</div>
-					<div *ngIf="this.submissionDetail.geography?.length">
-						Location: {{humanize(this.submissionDetail.geography)}}
-					</div>
-					<div *ngIf="this.submissionDetail.region?.length">
-						Region: {{humanize(this.submissionDetail.region)}}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-12 col-md-8 center">
-			<div *ngIf="this.submissionFiles">
-				<div *ngIf="this.submissionDetail.media_type === 'image'" class="row">
-					<div *ngFor="let submissionFile of this.submissionFiles" class="col-sm-12">
-						<div (click)="previewImage(submissionFile.directus_files_id.data.full_url)">
-							<img class="img-fluid" src="{{ submissionFile.directus_files_id.data.thumbnails[4].url }}">
-						</div>
-						<br>
-					</div>
-					<div id="myModal" class="modal">
-						<div (click)="closePreview()" class="close">&times;</div>
-						<img class="modal-content" id="myModalImg">
-						<div id="caption"></div>
-					</div>
-				</div>
-				<div *ngIf="this.submissionDetail.media_type === 'video'" class="row">
-					<div *ngFor="let submissionFile of this.submissionFiles" class="col-sm-12">
-						<video controls style="width: inherit;">
-							<source src="{{ submissionFile.directus_files_id.data.full_url }}" type="video/mp4">
-							Your browser does not support HTML video.
-						</video>
-						<br>
-					</div>
-				</div>
-				<div *ngIf="this.submissionDetail.media_type === 'audio'" class="row">
-					<div *ngFor="let submissionFile of this.submissionFiles" class="col-sm-12">
-						<audio controls>
-							<source src="{{ submissionFile.directus_files_id.data.full_url }}" type="audio/mpeg">
-							Your browser does not support the audio tag.
-						</audio>
-						<br>
-					</div>
-				</div>
-				<div *ngIf="this.submissionDetail.media_type === 'document'" class="row">
-					<div *ngFor="let submissionFile of this.submissionFiles" class="col-sm-12">
-						<a href="{{ submissionFile.directus_files_id.data.full_url }}" target="_blank">{{ submissionFile.directus_files_id.filename_download }}</a>
-					</div>
-					<br>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-sm-12 col-md-8 center review-heading">
+      <h1>Content details</h1>
+    </div>
+    <div class="col-sm-12 col-md-8 center">
+      <div class="box">
+        <div class="submission-content">
+          <div *ngIf="this.submissionDetail.title">
+            Title:
+            <span style="font-weight: bold;">{{ submissionDetail.title }}</span>
+          </div>
+          <div *ngIf="this.submissionDetail.modified_on">
+            Submitted On:
+            {{ submissionDetail.modified_on | date: ["MMM d, y, h:mm"] }}
+          </div>
+          <div *ngIf="this.submissionDetail.status">
+            Status: {{ humanize(submissionDetail.status) }}
+          </div>
+          <div *ngIf="this.submissionDetail.creative_testing">
+            Creative Testing: {{ this.submissionDetail.creative_testing }}
+          </div>
+          <br />
+          <div *ngIf="this.categoryDetail.title">
+            Challenge: {{ this.categoryDetail.title }}
+          </div>
+          <div *ngIf="this.challengeDetail.title">
+            Topic: {{ this.challengeDetail.title }}
+          </div>
+          <div *ngIf="this.submissionDetail.key_behaviour">
+            Key Behaviour: {{ this.submissionDetail.key_behaviour }}
+          </div>
+          <br />
+          <div *ngIf="this.submissionDetail.target_audience?.length">
+            Target Audience: {{ humanize(submissionDetail.target_audience) }}
+          </div>
+          <div *ngIf="this.submissionDetail.language?.length">
+            Language: {{ humanize(this.submissionDetail.language) }}
+          </div>
+          <div *ngIf="this.submissionDetail.geography?.length">
+            Location: {{ humanize(this.submissionDetail.geography) }}
+          </div>
+          <div *ngIf="this.submissionDetail.region?.length">
+            Region: {{ humanize(this.submissionDetail.region) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-8 center">
+      <div *ngIf="this.submissionFiles">
+        <div *ngIf="this.submissionDetail.media_type === 'image'" class="row">
+          <div
+            *ngFor="let submissionFile of this.submissionFiles"
+            class="col-sm-12"
+          >
+            <div
+              (click)="
+                previewImage(submissionFile.directus_files_id.data.full_url)
+              "
+            >
+              <img
+                class="img-fluid"
+                src="{{
+                  submissionFile.directus_files_id.data.thumbnails[4].url
+                }}"
+              />
+            </div>
+            <br />
+          </div>
+          <div id="myModal" class="modal">
+            <div (click)="closePreview()" class="close">&times;</div>
+            <img class="modal-content" id="myModalImg" />
+            <div id="caption"></div>
+          </div>
+        </div>
+        <div *ngIf="this.submissionDetail.media_type === 'video'" class="row">
+          <div
+            *ngFor="let submissionFile of this.submissionFiles"
+            class="col-sm-12"
+          >
+            <video controls style="width: inherit;">
+              <source
+                src="{{ submissionFile.directus_files_id.data.full_url }}"
+                type="video/mp4"
+              />
+              Your browser does not support HTML video.
+            </video>
+            <br />
+          </div>
+        </div>
+        <div *ngIf="this.submissionDetail.media_type === 'audio'" class="row">
+          <div
+            *ngFor="let submissionFile of this.submissionFiles"
+            class="col-sm-12"
+          >
+            <audio controls>
+              <source
+                src="{{ submissionFile.directus_files_id.data.full_url }}"
+                type="audio/mpeg"
+              />
+              Your browser does not support the audio tag.
+            </audio>
+            <br />
+          </div>
+        </div>
+        <div
+          *ngIf="this.submissionDetail.media_type === 'document'"
+          class="row"
+        >
+          <div
+            *ngFor="let submissionFile of this.submissionFiles"
+            class="col-sm-12"
+          >
+            <a
+              href="{{ submissionFile.directus_files_id.data.full_url }}"
+              target="_blank"
+              >{{ submissionFile.directus_files_id.filename_download }}</a
+            >
+          </div>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

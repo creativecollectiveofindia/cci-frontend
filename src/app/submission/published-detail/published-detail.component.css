@@ -1,18 +1,17 @@
-
 #detail {
-    width:100%;
-    margin:40px, 40px;
-    padding:25px;
-    background-color: #fff;
+  width: 100%;
+  margin: 40px, 40px;
+  padding: 25px;
+  background-color: #fff;
 }
 
-.submission-content{
+.submission-content {
   background-color: #5c5b5b;
-  padding:20px;
+  padding: 20px;
 }
 
-.review-heading{
-	text-align:center;
+.review-heading {
+  text-align: center;
   font-size: 36px !important;
   color: #212529;
   font-weight: bold;
@@ -25,7 +24,9 @@
   transition: 0.3s;
 }
 
-.myImg:hover {opacity: 0.7;}
+.myImg:hover {
+  opacity: 0.7;
+}
 
 .modal {
   display: none;
@@ -37,8 +38,8 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .modal-content {
@@ -65,7 +66,7 @@
   cursor: pointer;
 }
 
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 700px) {
   .modal-content {
     width: 100%;
   }
@@ -75,7 +76,6 @@
   margin: auto;
   width: 60%;
   padding: 10px;
-  background-color: #FFF;
-  color:#FFF;
-  
+  background-color: #fff;
+  color: #fff;
 }

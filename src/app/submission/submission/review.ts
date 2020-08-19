@@ -27,7 +27,7 @@ export class Review {
   pan_india: object;
   apply_to_specific_community: object;
   submission_id: object;
-  status:[''];
-  review_result:[''];
-  review_score:[''];
+  status: [""];
+  review_result: [""];
+  review_score: [""];
 }

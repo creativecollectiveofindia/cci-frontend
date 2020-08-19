@@ -1,44 +1,116 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-white header">
   <div class="container">
-    <a class="navbar-brand" href="https://creativecollectiveofindia.org/" (click)="setPageTitle('CCI')">
+    <a
+      class="navbar-brand"
+      href="https://creativecollectiveofindia.org/"
+      (click)="setPageTitle('CCI')"
+    >
       <img src="assets/images/logo.png" alt="Angular Project" />
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav  ml-auto">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="isCreator">
-          <a routerLink="/submission_form" routerLinkActive="active" class="nav-link" (click)="setPageTitle('New Submission')">New Submission</a>
+          <a
+            routerLink="/submission_form"
+            routerLinkActive="active"
+            class="nav-link"
+            (click)="setPageTitle('New Submission')"
+            >New Submission</a
+          >
         </li>
-        <li class="nav-item" *ngIf="isCreator||isReviewer">
-          <a routerLink="/submission-list" routerLinkActive="active" class="nav-link" (click)="setPageTitle('View Submissions')">View Submissions</a>
+        <li class="nav-item" *ngIf="isCreator || isReviewer">
+          <a
+            routerLink="/submission-list"
+            routerLinkActive="active"
+            class="nav-link"
+            (click)="setPageTitle('View Submissions')"
+            >View Submissions</a
+          >
         </li>
         <li class="nav-item">
-          <a routerLink="/published-list" routerLinkActive="active" class="nav-link" (click)="setPageTitle('Featured Content')">Featured Content</a>
+          <a
+            routerLink="/published-list"
+            routerLinkActive="active"
+            class="nav-link"
+            (click)="setPageTitle('Featured Content')"
+            >Featured Content</a
+          >
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="https://creativecollectiveofindia.org/" role="button" aria-haspopup="true" aria-expanded="false">Toolkit</a>
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="https://creativecollectiveofindia.org/"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Toolkit</a
+          >
           <div class="dropdown-menu" id="dropdownMenu">
-              <a class="dropdown-item" href="https://creativecollectiveofindia.org/homepage/creative-brief">Creative Brief</a>
-              <a class="dropdown-item" href="https://creativecollectiveofindia.org/homepage/creative-process">How To Participate</a>
-              <a class="dropdown-item" href="https://creativecollectiveofindia.org/homepage/faq-s">FAQ's</a>
+            <a
+              class="dropdown-item"
+              href="https://creativecollectiveofindia.org/homepage/creative-brief"
+              >Creative Brief</a
+            >
+            <a
+              class="dropdown-item"
+              href="https://creativecollectiveofindia.org/homepage/creative-process"
+              >How To Participate</a
+            >
+            <a
+              class="dropdown-item"
+              href="https://creativecollectiveofindia.org/homepage/faq-s"
+              >FAQ's</a
+            >
           </div>
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="https://creativecollectiveofindia.org/" role="button" aria-haspopup="true" aria-expanded="false">Challenges</a>
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="https://creativecollectiveofindia.org/"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Challenges</a
+          >
           <div class="dropdown-menu" id="dropdownMenu">
-              <a href="{{list.link_to_cms}}" class="dropdown-item" *ngFor="let list of challenges">{{list.title}}</a>
+            <a
+              href="{{ list.link_to_cms }}"
+              class="dropdown-item"
+              *ngFor="let list of challenges"
+              >{{ list.title }}</a
+            >
           </div>
         </li>
 
         <li class="nav-item">
-          <a href="https://creativecollectiveofindia.org/get-in-touch" class="nav-link">Get in touch</a>
+          <a
+            href="https://creativecollectiveofindia.org/get-in-touch"
+            class="nav-link"
+            >Get in touch</a
+          >
         </li>
 
         <li class="nav-item">
-          <a href="http://creativecollectiveofindia.org/" class="nav-link" (click)="setPageTitle('CCI - Home')">Home</a>
+          <a
+            href="http://creativecollectiveofindia.org/"
+            class="nav-link"
+            (click)="setPageTitle('CCI - Home')"
+            >Home</a
+          >
         </li>
         <li class="nav-item" *ngIf="!isLoggedIn">
           <a routerLink="/login" class="nav-link">Login</a>
@@ -50,11 +122,22 @@
           <a routerLink="/admin" class="nav-link">Admin Dashboard</a>
         </li> -->
         <li class="nav-item dropdown" *ngIf="isLoggedIn">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{isLoggedIn.data.user.first_name}}&nbsp;{{isLoggedIn.data.user.last_name}}
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {{ isLoggedIn.data.user.first_name }}&nbsp;{{
+              isLoggedIn.data.user.last_name
+            }}
           </a>
           <div class="dropdown-menu" id="dropdownMenu">
-            <a routerLink="/registration/{{isLoggedIn.data.user.id}}" class="dropdown-item">Edit profile</a>
+            <a
+              routerLink="/registration/{{ isLoggedIn.data.user.id }}"
+              class="dropdown-item"
+              >Edit profile</a
+            >
             <a routerLink="/login" class="dropdown-item">Logout</a>
           </div>
         </li>
