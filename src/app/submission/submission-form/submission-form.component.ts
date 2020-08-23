@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class SubmissionFormComponent implements OnInit {
   @ViewChild("fileDropRef") fileDropEl: ElementRef;
+  additionalFields = false;
   files: any[] = [];
   submissionFiles = [];
   savedSubmissionFiles = [];
@@ -82,17 +83,17 @@ export class SubmissionFormComponent implements OnInit {
     created_on: [""],
     modified_on: [""],
     modified_by: [""],
-    challenge_category: ["", Validators.required],
-    challenge: ["", Validators.required],
+    challenge_category: [1, Validators.required],
+    challenge: [1, Validators.required],
     file: [""],
     hidden_file: [""],
     language: [this.checkedValuesLanguages],
     target_audience: [this.checkedValuesTargetAudience],
-    geography: ["", Validators.required],
+    geography: [""],
     region: ["", Validators.required],
-    income_bracket: ["", Validators.required],
-    gender: ["", Validators.required],
-    age_group: ["", Validators.required],
+    income_bracket: [""],
+    gender: [""],
+    age_group: [""],
     educational_background: [""],
     sector: [""],
     special_condition: [""],
@@ -120,6 +121,8 @@ export class SubmissionFormComponent implements OnInit {
     this.getSpecialCondition();
     this.getMediaType();
     this.getCategories();
+    this.getDefaultTopics();
+    this.getDefaultChallenge();
     this.getWithdrawReasons();
 
     if (this.submissionId) {
@@ -178,7 +181,6 @@ export class SubmissionFormComponent implements OnInit {
         this.genderErrorMessage = "Gender is required.";
         var errorDiv = document.getElementById("genderValue");
         errorDiv.scrollIntoView();
-
         return;
       } else {
         this.genderErrorMessage = "";
@@ -188,20 +190,19 @@ export class SubmissionFormComponent implements OnInit {
         this.sectorErrorMessage = "Sector is required.";
         var errorDiv = document.getElementById("sectorValue");
         errorDiv.scrollIntoView();
-
         return;
       } else {
         this.sectorErrorMessage = "";
       }
 
-      if (formValue.target_audience.length == 0) {
+      /*if (formValue.target_audience.length == 0) {
         this.targetAudienceErrorMessage =
-          "Please select profession/occupation.";
-        var errorDiv = document.getElementById("targetAudienceCheckDiv");
+          'Please select profession/occupation.';
+        var errorDiv = document.getElementById('targetAudienceCheckDiv');
         errorDiv.scrollIntoView();
-
         return;
-      } else if (
+      } else */
+      if (
         formValue.target_audience_other == "" &&
         this.selectedTG.includes("other")
       ) {
@@ -209,7 +210,6 @@ export class SubmissionFormComponent implements OnInit {
           "Please provide other profession/occupation.";
         var errorDiv = document.getElementById("targetAudienceCheckDiv");
         errorDiv.scrollIntoView();
-
         return;
       } else {
         this.targetAudienceErrorMessage = "";
@@ -223,7 +223,6 @@ export class SubmissionFormComponent implements OnInit {
           "Please provide other special condition.";
         var errorDiv = document.getElementById("specialConditionValue");
         errorDiv.scrollIntoView();
-
         return;
       } else {
         this.specialAudienceErrorMessage = "";
@@ -236,7 +235,6 @@ export class SubmissionFormComponent implements OnInit {
         this.langErrorMessage = "Please select any TWO languages that apply.";
         var errorDiv = document.getElementById("langCheckDiv");
         errorDiv.scrollIntoView();
-
         return;
       } else if (
         this.checkedValuesLanguages.indexOf("other") != -1 &&
@@ -245,7 +243,6 @@ export class SubmissionFormComponent implements OnInit {
         this.langErrorMessage = "Please specify other language.";
         var errorDiv = document.getElementById("langCheckDiv");
         errorDiv.scrollIntoView();
-
         return;
       } else {
         this.langErrorMessage = "";
@@ -423,14 +420,14 @@ export class SubmissionFormComponent implements OnInit {
         this.sectorErrorMessage = "";
       }
 
-      if (formValue.target_audience.length == 0) {
+      /*if (formValue.target_audience.length == 0) {
         this.targetAudienceErrorMessage =
-          "Please select profession/occupation.";
-        var errorDiv = document.getElementById("targetAudienceCheckDiv");
+          'Please select profession/occupation.';
+        var errorDiv = document.getElementById('targetAudienceCheckDiv');
         errorDiv.scrollIntoView();
-
         return;
-      } else if (
+      } else */
+      if (
         formValue.target_audience_other == "" &&
         this.selectedTG.includes("other")
       ) {
@@ -935,12 +932,29 @@ export class SubmissionFormComponent implements OnInit {
     });
   }
 
+  getDefaultChallenge() {
+    this.CollectionService.getItem("creative_challenge", 1).subscribe(
+      (data) => {
+        this.challengeDetail = data.data;
+      }
+    );
+  }
+
   getCategories() {
     this.CollectionService.getItems("challenge_category").subscribe(
       (result) => {
         this.categories = result.data;
       }
     );
+  }
+
+  getDefaultTopics() {
+    this.CollectionService.getItems(
+      "creative_challenge",
+      "?filter[category][eq]=1"
+    ).subscribe((challengeResult) => {
+      this.topics = challengeResult.data;
+    });
   }
 
   getChallenges(event) {
