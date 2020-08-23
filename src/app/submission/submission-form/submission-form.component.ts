@@ -933,7 +933,7 @@ export class SubmissionFormComponent implements OnInit {
   }
 
   getDefaultChallenge() {
-    this.CollectionService.getItem("creative_challenge", 1).subscribe(
+    this.CollectionService.getItem("creative_challenge", "1").subscribe(
       (data) => {
         this.challengeDetail = data.data;
       }
