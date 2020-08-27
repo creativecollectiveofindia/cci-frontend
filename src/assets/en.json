@@ -1,0 +1,12 @@
+{
+  "global": {
+    "title": "CCI",
+    "desc": "CCI Desc"
+  },
+  "label": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "password": "Password"
+  }
+}

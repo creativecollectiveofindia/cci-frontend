@@ -1,15 +1,21 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../app/services/auth.service";
+import { TranslationService } from "./services/translation.service";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = "CCI";
-  constructor(public router: Router, private authService: AuthService) {
+  translation: any = {};
+  constructor(
+    public router: Router,
+    private authService: AuthService,
+    private translationService: TranslationService
+  ) {
     setInterval(function () {
       if (authService.isLoggedIn()) {
         let user = JSON.parse(localStorage.getItem("currentUser"));
@@ -46,4 +52,31 @@ export class AppComponent {
       }
     }, 180000);
   }
+  ngOnInit() {
+    let preferredLanguage = localStorage.getItem("preferredLanguage");
+    const translation = sessionStorage.getItem("translation");
+
+    if (!preferredLanguage) {
+      localStorage.setItem("preferredLanguage", "en");
+      preferredLanguage = "en";
+      this.getTranslation(preferredLanguage);
+    }
+
+    if (preferredLanguage && !translation) {
+      this.getTranslation(preferredLanguage);
+    }
+
+    this.translation = JSON.parse(sessionStorage.getItem("translation"));
+
+    console.log("translation", this.translation);
+  }
+
+  getTranslation = (preferredLanguage) => {
+    this.translationService
+      .getTranslation(preferredLanguage)
+      .subscribe((data) => {
+        sessionStorage.setItem("translation", JSON.stringify(data));
+        console.log(preferredLanguage, data);
+      });
+  };
 }
