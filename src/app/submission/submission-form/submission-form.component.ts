@@ -9,6 +9,7 @@ import {
 import { CollectionService } from "../../services/collection.service";
 import { Submission } from "../submission";
 import { ActivatedRoute, Router } from "@angular/router";
+import { TranslationService } from "../../services/translation.service";
 
 @Component({
   selector: "app-submission-form",
@@ -25,6 +26,7 @@ export class SubmissionFormComponent implements OnInit {
   saveSuccessMessage = "";
   saveErrorMessage = "";
   submissionStatus = "";
+  translation: any = {};
 
   selectedTG = [];
   submissionId = "";
@@ -71,8 +73,11 @@ export class SubmissionFormComponent implements OnInit {
     private CollectionService: CollectionService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private translationService: TranslationService
+  ) {
+    this.translation = JSON.parse(sessionStorage.getItem("translation"));
+  }
 
   submissionForm = this.formBuilder.group({
     id: [""],
@@ -150,8 +155,7 @@ export class SubmissionFormComponent implements OnInit {
     this.isSubmitted = true;
 
     if (formValue.status == "withdrawn" && formValue.withdraw_reasons == "") {
-      this.reasonsErrorMessage =
-        "Please select reason to withdraw the submission.";
+      this.reasonsErrorMessage = this.translation.messages.selectWithdrawReason;
       var errorDiv = document.getElementById("reasonValue");
       errorDiv.scrollIntoView();
 
@@ -178,7 +182,7 @@ export class SubmissionFormComponent implements OnInit {
 
     if (formValue.status == "submitted" || formValue.status == "draft") {
       if (formValue.gender == "others" && formValue.gender_other == "") {
-        this.genderErrorMessage = "Gender is required.";
+        this.genderErrorMessage = this.translation.messages.genderRequired;
         var errorDiv = document.getElementById("genderValue");
         errorDiv.scrollIntoView();
         return;
@@ -187,7 +191,7 @@ export class SubmissionFormComponent implements OnInit {
       }
 
       if (formValue.sector == "other" && formValue.sector_other == "") {
-        this.sectorErrorMessage = "Sector is required.";
+        this.sectorErrorMessage = this.translation.messages.sectorRequired;
         var errorDiv = document.getElementById("sectorValue");
         errorDiv.scrollIntoView();
         return;
@@ -206,8 +210,7 @@ export class SubmissionFormComponent implements OnInit {
         formValue.target_audience_other == "" &&
         this.selectedTG.includes("other")
       ) {
-        this.targetAudienceErrorMessage =
-          "Please provide other profession/occupation.";
+        this.targetAudienceErrorMessage = this.translation.messages.provideOtherOccupation;
         var errorDiv = document.getElementById("targetAudienceCheckDiv");
         errorDiv.scrollIntoView();
         return;
@@ -219,8 +222,7 @@ export class SubmissionFormComponent implements OnInit {
         formValue.special_condition == "other" &&
         formValue.special_condition_other == ""
       ) {
-        this.specialAudienceErrorMessage =
-          "Please provide other special condition.";
+        this.specialAudienceErrorMessage = this.translation.messages.provideSpecialCondition;
         var errorDiv = document.getElementById("specialConditionValue");
         errorDiv.scrollIntoView();
         return;
@@ -232,7 +234,7 @@ export class SubmissionFormComponent implements OnInit {
         this.checkedValuesLanguages.length == 0 ||
         this.checkedValuesLanguages.length > 2
       ) {
-        this.langErrorMessage = "Please select any TWO languages that apply.";
+        this.langErrorMessage = this.translation.messages.selectTwoLanguage;
         var errorDiv = document.getElementById("langCheckDiv");
         errorDiv.scrollIntoView();
         return;
@@ -240,7 +242,7 @@ export class SubmissionFormComponent implements OnInit {
         this.checkedValuesLanguages.indexOf("other") != -1 &&
         formValue.language_other == ""
       ) {
-        this.langErrorMessage = "Please specify other language.";
+        this.langErrorMessage = this.translation.messages.selectOtherLanguage;
         var errorDiv = document.getElementById("langCheckDiv");
         errorDiv.scrollIntoView();
         return;
@@ -303,13 +305,12 @@ export class SubmissionFormComponent implements OnInit {
           this.router.navigate(["/submission_form/" + result.data.id]);
 
           if (saveMode == "withdrawn") {
-            this.saveSuccessMessage = "Your submission is withdraw.";
+            this.saveSuccessMessage = this.translation.messages.submissionWithdraw;
           }
         },
         (error) => {
           document.documentElement.scrollTop = 0;
-          this.saveErrorMessage =
-            "Something went wrong, Please try again later.";
+          this.saveErrorMessage = this.translation.messages.somethingWentWrong;
         }
       );
     } else {
@@ -350,8 +351,7 @@ export class SubmissionFormComponent implements OnInit {
         },
         (error) => {
           document.documentElement.scrollTop = 0;
-          this.saveErrorMessage =
-            "Something went wrong, please try again later.";
+          this.saveErrorMessage = this.translation.messages.somethingWentWrong;
         }
       );
     }
@@ -373,8 +373,7 @@ export class SubmissionFormComponent implements OnInit {
     this.isSubmitted = true;
 
     if (formValue.status == "withdrawn" && formValue.withdraw_reasons == "") {
-      this.reasonsErrorMessage =
-        "Please select reason to withdraw the submission.";
+      this.reasonsErrorMessage = this.translation.messages.selectWithdrawReason;
       var errorDiv = document.getElementById("reasonValue");
       errorDiv.scrollIntoView();
 
@@ -401,7 +400,7 @@ export class SubmissionFormComponent implements OnInit {
 
     if (formValue.status == "submitted" || formValue.status == "draft") {
       if (formValue.gender == "others" && formValue.gender_other == "") {
-        this.genderErrorMessage = "Gender is required.";
+        this.genderErrorMessage = this.translation.messages.genderRequired;
         var errorDiv = document.getElementById("genderValue");
         errorDiv.scrollIntoView();
 
@@ -411,7 +410,7 @@ export class SubmissionFormComponent implements OnInit {
       }
 
       if (formValue.sector == "other" && formValue.sector_other == "") {
-        this.sectorErrorMessage = "Sector is required.";
+        this.sectorErrorMessage = this.translation.messages.sectorRequired;
         var errorDiv = document.getElementById("sectorValue");
         errorDiv.scrollIntoView();
 
@@ -431,8 +430,7 @@ export class SubmissionFormComponent implements OnInit {
         formValue.target_audience_other == "" &&
         this.selectedTG.includes("other")
       ) {
-        this.targetAudienceErrorMessage =
-          "Please provide other profession/occupation.";
+        this.targetAudienceErrorMessage = this.translation.messages.provideOtherOccupation;
         var errorDiv = document.getElementById("targetAudienceCheckDiv");
         errorDiv.scrollIntoView();
 
@@ -445,8 +443,7 @@ export class SubmissionFormComponent implements OnInit {
         formValue.special_condition == "other" &&
         formValue.special_condition_other == ""
       ) {
-        this.specialAudienceErrorMessage =
-          "Please provide other special condition.";
+        this.specialAudienceErrorMessage = this.translation.messages.provideSpecialCondition;
         var errorDiv = document.getElementById("specialConditionValue");
         errorDiv.scrollIntoView();
 
@@ -459,7 +456,7 @@ export class SubmissionFormComponent implements OnInit {
         this.checkedValuesLanguages.length == 0 ||
         this.checkedValuesLanguages.length > 2
       ) {
-        this.langErrorMessage = "Please select any TWO languages that apply.";
+        this.langErrorMessage = this.translation.messages.selectTwoLanguage;
         var errorDiv = document.getElementById("langCheckDiv");
         errorDiv.scrollIntoView();
 
@@ -468,7 +465,7 @@ export class SubmissionFormComponent implements OnInit {
         this.checkedValuesLanguages.indexOf("other") != -1 &&
         formValue.language_other == ""
       ) {
-        this.langErrorMessage = "Please specify other language.";
+        this.langErrorMessage = this.translation.messages.selectOtherLanguage;
         var errorDiv = document.getElementById("langCheckDiv");
         errorDiv.scrollIntoView();
 
@@ -488,8 +485,7 @@ export class SubmissionFormComponent implements OnInit {
 
   onFileSelect(event) {
     if (this.submissionStatus != "draft") {
-      this.saveErrorMessage =
-        "You can not update your submission once it is submitted.";
+      this.saveErrorMessage = this.translation.messages.submissionUneditable;
       document.documentElement.scrollTop = 0;
       return;
     }
@@ -530,8 +526,7 @@ export class SubmissionFormComponent implements OnInit {
 
   deleteFile(file) {
     if (this.submissionStatus != "draft") {
-      this.saveErrorMessage =
-        "You can't update your submission once it is submitted.";
+      this.saveErrorMessage = this.translation.messages.submissionUneditable;
       document.documentElement.scrollTop = 0;
       return;
     }
@@ -905,7 +900,7 @@ export class SubmissionFormComponent implements OnInit {
       this.checkedValuesLanguages.length > 1 &&
       event.target.checked == true
     ) {
-      this.langErrorMessage = "You can select maximum TWO languages.";
+      this.langErrorMessage = this.translation.messages.maxSelectLanguageTwo;
       event.target.checked = false;
       var errorDiv = document.getElementById("langCheckDiv");
       errorDiv.scrollIntoView();

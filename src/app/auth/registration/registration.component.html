@@ -1,247 +1,603 @@
 <section class="cmspage mtb-40">
-	<div class="container">
-		<div class="page-desc">
-			<div class="row justify-content-center">
-				<div class="col-md-8">
-					<h1 *ngIf="!registration_id">Registration</h1>
-					<h1 *ngIf="registration_id">Edit Profile</h1>
-					<div class="alert alert-danger" *ngIf="registrationError">
-						{{registrationError}}
-					</div>
-					<div class="alert alert-success" *ngIf="success">
-						{{success}} <a *ngIf="!registration_id" routerLink="/login">login</a>
-					</div>
-					<form [formGroup]="registrationForm" >
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="first_name">First name *</label>
-								<input type="text" class="form-control" formControlName="first_name" required>
-								<div *ngIf="registrationForm.controls['first_name'].invalid && (registrationForm.controls['first_name'].dirty || registrationForm.controls['first_name'].touched)" class="error">
-									<div *ngIf="registrationForm.controls['first_name'].errors">
-										First name is required.
-									</div>
-								</div>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="last_name">Last name *</label>
-								<input type="text" formControlName="last_name" class="form-control" required>
-								<div *ngIf="registrationForm.controls['last_name'].invalid && (registrationForm.controls['last_name'].dirty || registrationForm.controls['last_name'].touched)" class="error">
-									<div *ngIf="registrationForm.controls['last_name'].errors">
-										Last name is required.
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="email">E-Mail Id *</label>
-							<input type="text" formControlName="email" class="form-control" required>
-							<div *ngIf="registrationForm.controls['email'].invalid && (registrationForm.controls['email'].dirty || registrationForm.controls['email'].touched)" class="error">
-								<div *ngIf="registrationForm.controls['email'].errors.required">
-									E-Mail Id is required.
-								</div>
-								<div *ngIf="registrationForm.controls['email'].errors.email">
-									Invalid E-Mail Id.
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="password">Password *</label>
-								<input type="password" formControlName="password" class="form-control">
-								<div *ngIf="registrationForm.controls['password'].invalid && (registrationForm.controls['password'].dirty || registrationForm.controls['password'].touched)" class="error">
-									<div *ngIf="registrationForm.controls['password'].errors">
-										Password should contain atleast 6 letters
-									</div>
-								</div>
-							</div>
-							<div class="form-group col-md-6">
-								<label for="password">Confirm Password *</label>
-								<input type="password" formControlName="password1" id="password1" class="form-control">
-								<div *ngIf="registrationForm.controls['password1'].invalid && (registrationForm.controls['password1'].dirty || registrationForm.controls['password1'].touched)" class="error">
-									<div *ngIf="registrationForm.controls['password1'].errors">
-										<div class="ui pointing error basic label below" *ngIf="registrationForm.controls['password1'].value != registrationForm.controls['password'].value ">
-											password does not match!
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="contact_number">Contact Number *</label>
-							<input type="number" formControlName="contact_number" class="form-control" required>
-							<div *ngIf="registrationForm.controls['contact_number'].invalid && (registrationForm.controls['contact_number'].dirty || registrationForm.controls['contact_number'].touched)" class="error">
-								<div *ngIf="registrationForm.controls['contact_number'].errors.required">
-									Contact number is required.
-								</div>
-								<div *ngIf="registrationForm.controls['contact_number'].errors.min || registrationForm.controls['contact_number'].errors.max">
-									Invalid contact number.
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="address">Address</label>
-							<textarea type="text" formControlName="address" class="form-control" ></textarea>
-						</div>
-						<div class="form-group">
-							<label for="adult">Are you above 18? *</label>
-							<div>
-								<div class="form-check form-check-inline">
-									<label class="form-check-label" for="yes">
-									<input id="yes" formControlName="adult" type="radio" name="adult" value="yes">
-									Yes
-									</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<label class="form-check-label" for="no">
-									<input id="no" formControlName="adult" type="radio" name="adult" value="no">
-									No
-									</label>
-								</div>
-								<div class="ui pointing error basic label below" *ngIf=" isSubmitted && registrationForm.controls['adult'].errors && registrationForm.controls['adult'].errors.required">
-									Please select either of the options
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="occupation">Occupation *</label>
-							<div>
-								<div class="form-check form-check-inline">
-									<label class="form-check-label" for="service">
-									<input id="service" formControlName="occupation" type="radio" name="occupation" value="service">
-									Service
-									</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<label class="form-check-label" for="self-employed">
-									<input id="self-employed" type="radio" formControlName="occupation" name="occupation" value="self_employed">
-									Self Employed
-									</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<label class="form-check-label" for="business">
-									<input class="" id="business" type="radio"  formControlName="occupation" name="occupation" value="business">
-									Business
-									</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<label class="form-check-label" for="student">
-									<input class="" id="student" type="radio"  formControlName="occupation" name="occupation" value="student">
-									Student
-									</label>
-								</div>
-								<div class="ui pointing error basic label below "
-									*ngIf=" isSubmitted && registrationForm.controls['occupation'].errors && registrationForm.controls['occupation'].errors.required">
-									Please select either of the options
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<input autofocus="" formControlName="role" type="hidden">
-							<input autofocus="" formControlName="status" type="hidden">
-							<input autofocus="" formControlName="email_notifications" type="hidden">
-						</div>
-						<div class="form-group" id="social_handlers">
-							<label for="social_media_handles">If your submission is published, what social media handles would you like to feature?</label>
-							<div class="form-check form-check-inline" (change)="getdata($event)" class="col-xs-12 col-md-6">
-								<input class="form-check form-check-inline" type="checkbox" id="twitter" value="twitter" [attr.checked]="socialMediaHandles.indexOf('twitter') > -1 ? 'checked' : null">
-								<label class="form-check-label" for="twitter">Twitter</label>
-								&nbsp;
-								<input class="form-check form-check-inline" type="checkbox" id="linkedIn" value="linkedIn" [attr.checked]="socialMediaHandles.indexOf('linkedIn') > -1 ? 'checked' : null">
-								<label class="form-check-label" for="linkedIn">LinkedIn</label><br>
-								<input class="form-check form-check-inline" type="checkbox" id="instagram" value="instagram" [attr.checked]="socialMediaHandles.indexOf('instagram') > -1 ? 'checked' : null">
-								<label class="form-check-label" for="instagram">Instagram</label>
-								&nbsp;
-								<input class="form-check form-check-inline" type="checkbox" id="website" value="website" [attr.checked]="socialMediaHandles.indexOf('website') > -1 ? 'checked' : null">
-								<label class="form-check-label" for="website">Website</label>
-							</div>
-						</div>
-						<div class="form-group" *ngIf="socialMediaHandles.includes('website')">
-							<label for="website_address">Website Name</label><br>
-              <input type="text" id="website_address" class="form-control"  formControlName="website_name">
+  <div class="container">
+    <div class="page-desc">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h1 *ngIf="!registration_id">
+            {{ translation?.headings.registration }}
+          </h1>
+          <h1 *ngIf="registration_id">
+            {{ translation?.headings.editProfile }}
+          </h1>
+          <div class="alert alert-danger" *ngIf="registrationError">
+            {{ registrationError }}
+          </div>
+          <div class="alert alert-success" *ngIf="success">
+            {{ success }}
+            <a *ngIf="!registration_id" routerLink="/login">login</a>
+          </div>
+          <form [formGroup]="registrationForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="first_name"
+                  >{{ translation?.labels.firstName }} *</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="first_name"
+                  required
+                />
+                <div
+                  *ngIf="
+                    registrationForm.controls['first_name'].invalid &&
+                    (registrationForm.controls['first_name'].dirty ||
+                      registrationForm.controls['first_name'].touched)
+                  "
+                  class="error"
+                >
+                  <div *ngIf="registrationForm.controls['first_name'].errors">
+                    {{ translation?.messages.firstNameReqired }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="last_name"
+                  >{{ translation?.labels.lastName }} *</label
+                >
+                <input
+                  type="text"
+                  formControlName="last_name"
+                  class="form-control"
+                  required
+                />
+                <div
+                  *ngIf="
+                    registrationForm.controls['last_name'].invalid &&
+                    (registrationForm.controls['last_name'].dirty ||
+                      registrationForm.controls['last_name'].touched)
+                  "
+                  class="error"
+                >
+                  <div *ngIf="registrationForm.controls['last_name'].errors">
+                    {{ translation?.messages.lastNameRequired }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">{{ translation?.labels.email }} *</label>
+              <input
+                type="text"
+                formControlName="email"
+                class="form-control"
+                required
+              />
+              <div
+                *ngIf="
+                  registrationForm.controls['email'].invalid &&
+                  (registrationForm.controls['email'].dirty ||
+                    registrationForm.controls['email'].touched)
+                "
+                class="error"
+              >
+                <div *ngIf="registrationForm.controls['email'].errors.required">
+                  {{ translation?.messages.emailRequired }}
+                </div>
+                <div *ngIf="registrationForm.controls['email'].errors.email">
+                  {{ translation?.messages.invalidEmail }}
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="password"
+                  >{{ translation?.labels.password }} *</label
+                >
+                <input
+                  type="password"
+                  formControlName="password"
+                  class="form-control"
+                />
+                <div
+                  *ngIf="
+                    registrationForm.controls['password'].invalid &&
+                    (registrationForm.controls['password'].dirty ||
+                      registrationForm.controls['password'].touched)
+                  "
+                  class="error"
+                >
+                  <div *ngIf="registrationForm.controls['password'].errors">
+                    {{ translation?.messages.passwordSmall }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="password"
+                  >{{ translation?.labels.confirmPassword }} *</label
+                >
+                <input
+                  type="password"
+                  formControlName="password1"
+                  id="password1"
+                  class="form-control"
+                />
+                <div
+                  *ngIf="
+                    registrationForm.controls['password1'].invalid &&
+                    (registrationForm.controls['password1'].dirty ||
+                      registrationForm.controls['password1'].touched)
+                  "
+                  class="error"
+                >
+                  <div *ngIf="registrationForm.controls['password1'].errors">
+                    <div
+                      class="ui pointing error basic label below"
+                      *ngIf="
+                        registrationForm.controls['password1'].value !=
+                        registrationForm.controls['password'].value
+                      "
+                    >
+                      {{ translation?.messages.passwordNotMatch }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="contact_number"
+                >{{ translation?.labels.contactNumber }} *</label
+              >
+              <input
+                type="number"
+                formControlName="contact_number"
+                class="form-control"
+                required
+              />
+              <div
+                *ngIf="
+                  registrationForm.controls['contact_number'].invalid &&
+                  (registrationForm.controls['contact_number'].dirty ||
+                    registrationForm.controls['contact_number'].touched)
+                "
+                class="error"
+              >
+                <div
+                  *ngIf="
+                    registrationForm.controls['contact_number'].errors.required
+                  "
+                >
+                  {{ translation?.messages.contactNumberRequired }}
+                </div>
+                <div
+                  *ngIf="
+                    registrationForm.controls['contact_number'].errors.min ||
+                    registrationForm.controls['contact_number'].errors.max
+                  "
+                >
+                  {{ translation?.messages.contactNumberInvalid }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address">{{ translation?.labels.address }}</label>
+              <textarea
+                type="text"
+                formControlName="address"
+                class="form-control"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="adult">{{ translation?.labels.above18 }} *</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="yes">
+                    <input
+                      id="yes"
+                      formControlName="adult"
+                      type="radio"
+                      name="adult"
+                      value="yes"
+                    />
+                    {{ translation?.options.yes }}
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="no">
+                    <input
+                      id="no"
+                      formControlName="adult"
+                      type="radio"
+                      name="adult"
+                      value="no"
+                    />
+                    {{ translation?.options.no }}
+                  </label>
+                </div>
+                <div
+                  class="ui pointing error basic label below"
+                  *ngIf="
+                    isSubmitted &&
+                    registrationForm.controls['adult'].errors &&
+                    registrationForm.controls['adult'].errors.required
+                  "
+                >
+                  {{ translation?.messages.selectEitherOption }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="occupation"
+                >{{ translation?.labels.occupation }} *</label
+              >
+              <div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="service">
+                    <input
+                      id="service"
+                      formControlName="occupation"
+                      type="radio"
+                      name="occupation"
+                      value="service"
+                    />
+                    {{ translation?.options.service }}
+                    Service
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="self-employed">
+                    <input
+                      id="self-employed"
+                      type="radio"
+                      formControlName="occupation"
+                      name="occupation"
+                      value="self_employed"
+                    />
+                    {{ translation?.options.selfEmployed }}
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="business">
+                    <input
+                      class=""
+                      id="business"
+                      type="radio"
+                      formControlName="occupation"
+                      name="occupation"
+                      value="business"
+                    />
+                    {{ translation?.options.business }}
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="student">
+                    <input
+                      class=""
+                      id="student"
+                      type="radio"
+                      formControlName="occupation"
+                      name="occupation"
+                      value="student"
+                    />
+                    {{ translation?.options.student }}
+                  </label>
+                </div>
+                <div
+                  class="ui pointing error basic label below"
+                  *ngIf="
+                    isSubmitted &&
+                    registrationForm.controls['occupation'].errors &&
+                    registrationForm.controls['occupation'].errors.required
+                  "
+                >
+                  {{ translation?.messages.selectEitherOption }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input autofocus="" formControlName="role" type="hidden" />
+              <input autofocus="" formControlName="status" type="hidden" />
+              <input
+                autofocus=""
+                formControlName="email_notifications"
+                type="hidden"
+              />
+            </div>
+            <div class="form-group" id="social_handlers">
+              <label for="social_media_handles">
+                {{ translation?.labels.publishOnSocialMedia }}
+              </label>
+              <div
+                class="form-check form-check-inline"
+                (change)="getdata($event)"
+                class="col-xs-12 col-md-6"
+              >
+                <input
+                  class="form-check form-check-inline"
+                  type="checkbox"
+                  id="twitter"
+                  value="twitter"
+                  [attr.checked]="
+                    socialMediaHandles.indexOf('twitter') > -1
+                      ? 'checked'
+                      : null
+                  "
+                />
+                <label class="form-check-label" for="twitter">
+                  {{ translation?.options.twitter }}
+                </label>
+                &nbsp;
+                <input
+                  class="form-check form-check-inline"
+                  type="checkbox"
+                  id="linkedIn"
+                  value="linkedIn"
+                  [attr.checked]="
+                    socialMediaHandles.indexOf('linkedIn') > -1
+                      ? 'checked'
+                      : null
+                  "
+                />
+                <label class="form-check-label" for="linkedIn">
+                  {{ translation?.options.linkedIn }} </label
+                ><br />
+                <input
+                  class="form-check form-check-inline"
+                  type="checkbox"
+                  id="instagram"
+                  value="instagram"
+                  [attr.checked]="
+                    socialMediaHandles.indexOf('instagram') > -1
+                      ? 'checked'
+                      : null
+                  "
+                />
+                <label class="form-check-label" for="instagram">
+                  {{ translation?.options.instagram }}
+                </label>
+                &nbsp;
+                <input
+                  class="form-check form-check-inline"
+                  type="checkbox"
+                  id="website"
+                  value="website"
+                  [attr.checked]="
+                    socialMediaHandles.indexOf('website') > -1
+                      ? 'checked'
+                      : null
+                  "
+                />
+                <label class="form-check-label" for="website">{{
+                  translation?.options.website
+                }}</label>
+              </div>
+            </div>
+            <div
+              class="form-group"
+              *ngIf="socialMediaHandles.includes('website')"
+            >
+              <label for="website_address">{{
+                translation?.labels.websiteName
+              }}</label
+              ><br />
+              <input
+                type="text"
+                id="website_address"
+                class="form-control"
+                formControlName="website_name"
+              />
               <div *ngIf="websiteErrorMessage">
-								<div class="" style="color: red">
-									{{ websiteErrorMessage }}
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="languages">Indicate your language preference for content</label><br>
-							<i><label for="languages">Primary language:</label></i>
-							<select autofocus="" formControlName="languages" class="form-control ng-pristine ng-valid ng-touched" (change)="getLanguages($event)">
-								<option value="" disabled>Choose primary language</option>
-								<option value="language_independent">Language Independent</option>
-								<option value="english">English</option>
-								<option value="assamese">Assamese (Asamiya)</option>
-								<option value="bengali">Bengali</option>
-								<option value="bhojpuri">Bhojpuri</option>
-								<option value="bodo">Bodo</option>
-								<option value="dogri">Dogri</option>
-								<option value="gujarati">Gujarati</option>
-								<option value="hindi">Hindi</option>
-								<option value="kashmiri">Kashmiri</option>
-								<option value="konkani">konkani</option>
-								<option value="malayalam">Malayalam</option>
-								<option value="maithili">maithili</option>
-								<option value="marathi">marathi</option>
-								<option value="nepali">Nepali</option>
-								<option value="odia">Odia</option>
-								<option value="rajasthani">Rajasthani/Marwari</option>
-								<option value="santhali">Santhali</option>
-								<option value="sindhi">Sindhi</option>
-								<option value="tamil">Tamil</option>
-								<option value="telugu">Telugu</option>
-								<option value="urdu">Urdu</option>
-								<option value="meitei">Meitei (Manipuri)</option>
-								<option value="ncr">New Delhi-NCR</option>
-								<option value="indian_sign_language">Indian Sign Language</option>
-								<option value="other">Other</option>
-							</select>
-							<i><label for="languages">Secondary language:</label></i>
-							<div *ngIf="langErrorMessage">
-								<div class="" style="color: red">
-									{{ langErrorMessage }}
-								</div>
-							</div>
-							<select multiple autofocus="" formControlName="secondary_language" class="form-control ng-pristine ng-valid ng-touched" id="selectLanguage">
-								<option value="" disabled>Choose secondary language</option>
-								<option value="language_independent">Language Independent</option>
-								<option value="english">English</option>
-								<option value="assamese">Assamese (Asamiya)</option>
-								<option value="bengali">Bengali</option>
-								<option value="bhojpuri">Bhojpuri</option>
-								<option value="bodo">Bodo</option>
-								<option value="dogri">Dogri</option>
-								<option value="gujarati">Gujarati</option>
-								<option value="hindi">Hindi</option>
-								<option value="kashmiri">Kashmiri</option>
-								<option value="konkani">konkani</option>
-								<option value="malayalam">Malayalam</option>
-								<option value="maithili">maithili</option>
-								<option value="marathi">marathi</option>
-								<option value="nepali">Nepali</option>
-								<option value="odia">Odia</option>
-								<option value="rajasthani">Rajasthani/Marwari</option>
-								<option value="santhali">Santhali</option>
-								<option value="sindhi">Sindhi</option>
-								<option value="tamil">Tamil</option>
-								<option value="telugu">Telugu</option>
-								<option value="urdu">Urdu</option>
-								<option value="meitei">Meitei (Manipuri)</option>
-								<option value="ncr">New Delhi-NCR</option>
-								<option value="indian_sign_language">Indian Sign Language</option>
-								<option value="other">Other</option>
-							</select>
-						</div>
-						<div *ngIf="loading==true" id="preloader">
-							<div id="loader"></div>
-						</div>
-						<div class="form-group">
-							<button *ngIf="!registration_id" (click)="register();" [disabled]="!registrationForm.valid" class="btn btn-primary">Register</button>
-							<button *ngIf="registration_id" (click)="register();" [disabled]="!registrationForm.valid" class="btn btn-primary">Update</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                <div class="" style="color: red;">
+                  {{ websiteErrorMessage }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="languages">{{
+                translation?.labels.languagePreferences
+              }}</label
+              ><br />
+              <i
+                ><label for="languages"
+                  >{{ translation?.labels.primaryLanguage }}:</label
+                ></i
+              >
+              <select
+                autofocus=""
+                formControlName="languages"
+                class="form-control ng-pristine ng-valid ng-touched"
+                (change)="getLanguages($event)"
+              >
+                <option value="" disabled>{{
+                  translation?.languages.choosePrimaryLanguage
+                }}</option>
+                <option value="language_independent">{{
+                  translation?.languages.language_independent
+                }}</option>
+                <option value="english">{{
+                  translation?.languages.english
+                }}</option>
+                <option value="assamese">{{
+                  translation?.languages.assamese
+                }}</option>
+                <option value="bengali">{{
+                  translation?.languages.bengali
+                }}</option>
+                <option value="bhojpuri">{{
+                  translation?.languages.bhojpuri
+                }}</option>
+                <option value="bodo">{{ translation?.languages.bodo }}</option>
+                <option value="dogri">{{
+                  translation?.languages.dogri
+                }}</option>
+                <option value="gujarati">{{
+                  translation?.languages.gujarati
+                }}</option>
+                <option value="hindi">{{
+                  translation?.languages.hindi
+                }}</option>
+                <option value="kashmiri">{{
+                  translation?.languages.kashmiri
+                }}</option>
+                <option value="konkani">{{
+                  translation?.languages.konkani
+                }}</option>
+                <option value="malayalam">{{
+                  translation?.languages.malayalam
+                }}</option>
+                <option value="maithili">{{
+                  translation?.languages.maithili
+                }}</option>
+                <option value="marathi">{{
+                  translation?.languages.marathi
+                }}</option>
+                <option value="nepali">{{
+                  translation?.languages.nepali
+                }}</option>
+                <option value="odia">{{ translation?.languages.odia }}</option>
+                <option value="rajasthani">{{
+                  translation?.languages.rajasthani
+                }}</option>
+                <option value="santhali">{{
+                  translation?.languages.santhali
+                }}</option>
+                <option value="sindhi">{{
+                  translation?.languages.sindhi
+                }}</option>
+                <option value="tamil">{{
+                  translation?.languages.tamil
+                }}</option>
+                <option value="telugu">{{
+                  translation?.languages.telugu
+                }}</option>
+                <option value="urdu">{{ translation?.languages.urdu }}</option>
+                <option value="meitei">{{
+                  translation?.languages.meitei
+                }}</option>
+                <option value="ncr">{{ translation?.languages.ncr }}</option>
+                <option value="indian_sign_language">{{
+                  translation?.languages.indian_sign_language
+                }}</option>
+                <option value="other">{{
+                  translation?.languages.other
+                }}</option>
+              </select>
+              <i
+                ><label for="languages"
+                  >{{ translation?.labels.secondaryLanguage }}:</label
+                ></i
+              >
+              <div *ngIf="langErrorMessage">
+                <div class="" style="color: red;">
+                  {{ langErrorMessage }}
+                </div>
+              </div>
+              <select
+                multiple
+                autofocus=""
+                formControlName="secondary_language"
+                class="form-control ng-pristine ng-valid ng-touched"
+                id="selectLanguage"
+              >
+                <option value="" disabled>{{
+                  translation?.languages.choosePrimaryLanguage
+                }}</option>
+                <option value="language_independent">{{
+                  translation?.languages.language_independent
+                }}</option>
+                <option value="english">{{
+                  translation?.languages.english
+                }}</option>
+                <option value="assamese">{{
+                  translation?.languages.assamese
+                }}</option>
+                <option value="bengali">{{
+                  translation?.languages.bengali
+                }}</option>
+                <option value="bhojpuri">{{
+                  translation?.languages.bhojpuri
+                }}</option>
+                <option value="bodo">{{ translation?.languages.bodo }}</option>
+                <option value="dogri">{{
+                  translation?.languages.dogri
+                }}</option>
+                <option value="gujarati">{{
+                  translation?.languages.gujarati
+                }}</option>
+                <option value="hindi">{{
+                  translation?.languages.hindi
+                }}</option>
+                <option value="kashmiri">{{
+                  translation?.languages.kashmiri
+                }}</option>
+                <option value="konkani">{{
+                  translation?.languages.konkani
+                }}</option>
+                <option value="malayalam">{{
+                  translation?.languages.malayalam
+                }}</option>
+                <option value="maithili">{{
+                  translation?.languages.maithili
+                }}</option>
+                <option value="marathi">{{
+                  translation?.languages.marathi
+                }}</option>
+                <option value="nepali">{{
+                  translation?.languages.nepali
+                }}</option>
+                <option value="odia">{{ translation?.languages.odia }}</option>
+                <option value="rajasthani">{{
+                  translation?.languages.rajasthani
+                }}</option>
+                <option value="santhali">{{
+                  translation?.languages.santhali
+                }}</option>
+                <option value="sindhi">{{
+                  translation?.languages.sindhi
+                }}</option>
+                <option value="tamil">{{
+                  translation?.languages.tamil
+                }}</option>
+                <option value="telugu">{{
+                  translation?.languages.telugu
+                }}</option>
+                <option value="urdu">{{ translation?.languages.urdu }}</option>
+                <option value="meitei">{{
+                  translation?.languages.meitei
+                }}</option>
+                <option value="ncr">{{ translation?.languages.ncr }}</option>
+                <option value="indian_sign_language">{{
+                  translation?.languages.indian_sign_language
+                }}</option>
+                <option value="other">{{
+                  translation?.languages.other
+                }}</option>
+              </select>
+            </div>
+            <div *ngIf="loading == true" id="preloader">
+              <div id="loader"></div>
+            </div>
+            <div class="form-group">
+              <button
+                *ngIf="!registration_id"
+                (click)="register()"
+                [disabled]="!registrationForm.valid"
+                class="btn btn-primary"
+              >
+                {{ translation?.buttons.register }}
+              </button>
+              <button
+                *ngIf="registration_id"
+                (click)="register()"
+                [disabled]="!registrationForm.valid"
+                class="btn btn-primary"
+              >
+                {{ translation?.buttons.update }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

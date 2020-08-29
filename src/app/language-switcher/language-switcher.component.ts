@@ -6,11 +6,16 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./language-switcher.component.css"],
 })
 export class LanguageSwitcherComponent implements OnInit {
+  selectedLanguage: String;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectedLanguage = localStorage.getItem("preferredLanguage");
+  }
   changeLanguage(event) {
     localStorage.setItem("preferredLanguage", event.target.value);
+    sessionStorage.removeItem("translation");
+    window.location.reload();
     console.log("Language switched to :", event.target.value);
   }
 }

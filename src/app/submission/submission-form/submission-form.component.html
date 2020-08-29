@@ -14,34 +14,41 @@
     </div>
     <div class="col-sm-12 col-md-4" id="challengeDetail">
       <div class="box">
-        <div class="review-heading">Creative Brief</div>
+        <div class="review-heading">
+          {{ translation?.headings.creativeBrief }}
+        </div>
         <div *ngIf="challengeDetail.title">
           <h5>
             <b> {{ challengeDetail.title }} </b>
           </h5>
         </div>
         <div *ngIf="challengeDetail.introduction">
-          <b>INTRODUCTION</b><br />
+          <b>{{ translation?.labels.introduction }}</b
+          ><br />
           <div [innerHTML]="challengeDetail.introduction"></div>
           <br />
         </div>
         <div *ngIf="challengeDetail.description">
-          <b>CREATIVE BRIEF</b><br />
+          <b>{{ translation?.labels.creativeBrief }}</b
+          ><br />
           <div [innerHTML]="challengeDetail.description"></div>
           <br />
         </div>
         <div *ngIf="challengeDetail.key_behaviour">
-          <b>Key behaviour</b><br />
+          <b>{{ translation?.labels.keyBehaviour }}</b
+          ><br />
           <div [innerHTML]="challengeDetail.key_behaviour"></div>
           <br />
         </div>
         <div *ngIf="challengeDetail.good_to_have_information">
-          <b>Good to have information</b><br />
+          <b>{{ translation?.labels.goodToHaveInfo }}</b
+          ><br />
           <div [innerHTML]="challengeDetail.good_to_have_information"></div>
           <br />
         </div>
         <div *ngIf="challengeDetail.challenge_goal">
-          <b>CHALLENGE GOAL</b><br />
+          <b>{{ translation?.labels.challengeGoal }}</b
+          ><br />
           <div [innerHTML]="challengeDetail.challenge_goal"></div>
           <br />
         </div>
@@ -49,11 +56,13 @@
     </div>
     <div class="col-sm-12 col-md-4" id="submissionDetail">
       <div class="box">
-        <div class="review-heading">Submission</div>
+        <div class="review-heading">
+          {{ translation?.headings.submission }}
+        </div>
         <div class="submission-content">
           <form class="ui form" [formGroup]="submissionForm">
             <div class="form-group">
-              <label class="d-block">Title * </label>
+              <label class="d-block">{{ translation?.labels.title }} * </label>
               <div class="field">
                 <input
                   autofocus=""
@@ -70,7 +79,7 @@
                     submissionForm.controls['title'].errors.required
                   "
                 >
-                  Title is required
+                  {{ translation?.messages.titleRequired }}
                 </div>
                 <div
                   class="ui pointing error basic label below"
@@ -80,21 +89,26 @@
                     submissionForm.controls['title'].errors.maxlength
                   "
                 >
-                  Title length should not exceed 150 characters
+                  {{ translation?.messages.titleCharLimit }}
                 </div>
               </div>
             </div>
             <div *ngIf="submittedOn">
               <label
-                >Submitted On:
-                {{ submittedOn | date: ['d MMM y hh:mm'] }}</label
+                >{{ translation?.labels.submittedOn }}:
+                {{ submittedOn | date: ["d MMM y hh:mm"] }}</label
               >
             </div>
             <div *ngIf="submissionStatus">
-              <label>Status: {{ submissionStatus | titlecase }}</label>
+              <label
+                >{{ translation?.labels.status }}:
+                {{ submissionStatus | titlecase }}</label
+              >
             </div>
             <div class="form-group">
-              <label class="d-block">Choose challenge * </label>
+              <label class="d-block"
+                >{{ translation?.labels.chooseChallenge }} *
+              </label>
               <div class="field">
                 <select
                   autofocus=""
@@ -102,7 +116,9 @@
                   class="form-control ng-pristine ng-valid ng-touched"
                   (change)="getChallenges($event)"
                 >
-                  <option value="" disabled>Choose challenge</option>
+                  <option value="" disabled>{{
+                    translation?.options.chooseChallenge
+                  }}</option>
 
                   <option
                     [value]="challenge.id"
@@ -121,13 +137,15 @@
                   "
                 >
                   <div class="error">
-                    Challenge is required.
+                    {{ translation?.messages.challengeRequired }}
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label class="d-block">Choose Topic * </label>
+              <label class="d-block"
+                >{{ translation?.labels.chooseTopic }} *
+              </label>
               <div class="field">
                 <select
                   autofocus=""
@@ -136,7 +154,9 @@
                   (change)="onChanges($event)"
                   placeholder="Enter topic"
                 >
-                  <option value="" disabled>Choose topic</option>
+                  <option value="" disabled
+                    >{{ translation?.labels.chooseTopic }}
+                  </option>
                   <option
                     [value]="topic.id"
                     *ngFor="let topic of topics"
@@ -153,13 +173,15 @@
                   "
                 >
                   <div class="error">
-                    Topic is required.
+                    {{ translation?.messages.topicRequired }}
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label class="d-block">Choose media type * </label>
+              <label class="d-block"
+                >{{ translation?.labels.chooseMediaType }} *
+              </label>
               <div class="field">
                 <select
                   autofocus=""
@@ -167,7 +189,9 @@
                   class="form-control ng-pristine ng-valid ng-touched"
                   (change)="selectFileType($event)"
                 >
-                  <option value="" disabled>Choose media type</option>
+                  <option value="" disabled
+                    >{{ translation?.options.chooseMediaType }}
+                  </option>
                   <option
                     [value]="media.value"
                     *ngFor="let media of submissionMediaType"
@@ -182,7 +206,7 @@
                   "
                 >
                   <div class="error">
-                    Media type is required.
+                    {{ translation?.messages.mediaRequired }}
                   </div>
                 </div>
               </div>
@@ -202,7 +226,7 @@
                 />
                 <img src="assets\images\dragdrop.png" />
                 <label for="fileDropRef" class="d-block filelabel"
-                  >Browse for file
+                  >{{ translation?.options.browseFile }}
                 </label>
                 <div
                   *ngIf="
@@ -212,7 +236,7 @@
                   "
                 >
                   <div class="error">
-                    File is required.
+                    {{ translation?.messages.fileRequired }}
                   </div>
                 </div>
               </div>
@@ -272,11 +296,15 @@
     <div class="col-sm-12 col-md-4" id="submissionDetail">
       <div class="box">
         <form class="ui form" [formGroup]="submissionForm">
-          <div class="review-heading">Submission Details</div>
-          <h6>About the target audience (TG)</h6>
+          <div class="review-heading">
+            {{ translation?.headings.submissionDetails }}
+          </div>
+          <h6>{{ translation?.headings.targetAudience }}</h6>
           <div class="form-group" id="langCheckDiv">
-            <label class="d-block">Which languages are you targeting? * </label>
-            <h6>Select any TWO that apply.</h6>
+            <label class="d-block"
+              >{{ translation?.labels.targetLanguage }} *
+            </label>
+            <h6>{{ translation?.labels.selectAnyTwo }}</h6>
             <div>
               <div *ngIf="langErrorMessage">
                 <div class="error">
@@ -310,13 +338,15 @@
                   submissionForm.controls['language'].errors.required
                 "
               >
-                Select any two language
+                {{ translation?.messages.selectAnyTwoLanguage }}
               </div>
               <div
                 class="mx-sm-4 mb-3"
                 *ngIf="checkedValuesLanguages.indexOf('other') != -1"
               >
-                <label class="d-block">If other, specify:</label>
+                <label class="d-block"
+                  >{{ translation?.labels.ifOtherSpecify }} :</label
+                >
                 <input
                   autofocus=""
                   formControlName="language_other"
@@ -329,7 +359,7 @@
           </div>
           <div class="form-group">
             <label class="d-block"
-              >Which region/state does your TG belong to? *
+              >{{ translation?.labels.regionbelongTo }} *
             </label>
             <div class="field">
               <select
@@ -337,7 +367,9 @@
                 formControlName="region"
                 class="form-control ng-pristine ng-valid ng-touched"
               >
-                <option value="" disabled>Select Region</option>
+                <option value="" disabled>{{
+                  translation?.options.selectRegion
+                }}</option>
                 <option
                   [value]="submissionRegion.value"
                   *ngFor="let submissionRegion of submissionRegions"
@@ -348,34 +380,34 @@
                 *ngIf="isSubmitted && submissionForm.controls['region'].errors"
               >
                 <div class="error">
-                  Region is required.
+                  {{ translation?.messages.regionRequired }}
                 </div>
               </div>
             </div>
           </div>
           <div class="form-group">
             <label class="d-block">
-              Do you want to fill additional details?
+              {{ translation?.labels.additionalDetails }}
             </label>
             <div class="field">
               <button
                 class="btn btn-success btn-sm mr-3"
                 (click)="additionalFields = true"
               >
-                Ok
+                {{ translation?.buttons.ok }}
               </button>
               <button
                 class="btn btn-light btn-sm"
                 (click)="additionalFields = false"
               >
-                Skip
+                {{ translation?.buttons.skip }}
               </button>
             </div>
           </div>
           <ng-container *ngIf="additionalFields == true">
             <div class="form-group">
               <label class="d-block"
-                >Which income bracket your target audience belong to?
+                >{{ translation?.labels.incomeBracket }}
               </label>
               <div class="field">
                 <select
@@ -383,7 +415,9 @@
                   formControlName="income_bracket"
                   class="form-control ng-pristine ng-valid ng-touched"
                 >
-                  <option value="" disabled>Select income bracket</option>
+                  <option value="" disabled>{{
+                    translation?.options.selectIncomeBracket
+                  }}</option>
                   <option
                     [value]="income.value"
                     *ngFor="let income of submissionIncomeBracket"
@@ -398,22 +432,24 @@
                   "
                 >
                   <div class="error">
-                    Income bracket is required.
+                    {{ translation?.messages.incomeBracketRequired }}
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group" id="genderValue">
-              <label class="d-block"
-                >Are you targeting a specific gender?</label
-              >
+              <label class="d-block">{{
+                translation?.labels.targetGender
+              }}</label>
               <div class="field">
                 <select
                   autofocus=""
                   formControlName="gender"
                   class="form-control ng-pristine ng-valid ng-touched"
                 >
-                  <option value="" disabled>Select gender</option>
+                  <option value="" disabled>{{
+                    translation?.options.selectGender
+                  }}</option>
                   <option
                     [value]="gender.value"
                     *ngFor="let gender of submissionGender"
@@ -425,7 +461,9 @@
                 class="mx-sm-4 mb-3"
                 *ngIf="submissionForm.controls.gender.value == 'others'"
               >
-                <label class="d-block">If other, specify:</label>
+                <label class="d-block"
+                  >{{ translation?.labels.ifOtherSpecify }} :</label
+                >
                 <input
                   autofocus=""
                   formControlName="gender_other"
@@ -446,15 +484,13 @@
                 "
               >
                 <div class="error">
-                  Gender is required.
+                  {{ translation?.messages.genderRequired }}
                 </div>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="d-block"
-                >Which age group does your TG belong to?</label
-              >
+              <label class="d-block">{{ translation?.labels.targetAge }}</label>
               <div class="field">
                 <select
                   multiple
@@ -462,7 +498,9 @@
                   formControlName="age_group"
                   class="form-control ng-pristine ng-valid ng-touched"
                 >
-                  <option value="" disabled>Select age group</option>
+                  <option value="" disabled>{{
+                    translation?.options.selectAgeGroup
+                  }}</option>
                   <option
                     [value]="age.value"
                     *ngFor="let age of submissionAgeGroup"
@@ -475,15 +513,15 @@
                   "
                 >
                   <div class="error">
-                    Age group is required.
+                    {{ translation?.messages.ageRequired }}
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label class="d-block"
-                >What educational background does your TG belong to?</label
-              >
+              <label class="d-block">{{
+                translation?.labels.targetEducation
+              }}</label>
               <div class="field">
                 <select
                   multiple
@@ -491,9 +529,9 @@
                   formControlName="educational_background"
                   class="form-control ng-pristine ng-valid ng-touched"
                 >
-                  <option value="" disabled
-                    >Select educational background</option
-                  >
+                  <option value="" disabled>{{
+                    translation?.options.selectEducationBackground
+                  }}</option>
                   <option
                     [value]="edu.value"
                     *ngFor="let edu of submissionEducation"
@@ -503,14 +541,18 @@
               </div>
             </div>
             <div class="form-group" id="sectorValue">
-              <label class="d-block">Which sector does your TG work in?</label>
+              <label class="d-block">{{
+                translation?.labels.targetSector
+              }}</label>
               <div class="field">
                 <select
                   autofocus=""
                   formControlName="sector"
                   class="form-control ng-pristine ng-valid ng-touched"
                 >
-                  <option value="">Select sector</option>
+                  <option value="">{{
+                    translation?.options.selectSector
+                  }}</option>
                   <option
                     [value]="sector.value"
                     *ngFor="let sector of submissionSector"
@@ -521,7 +563,9 @@
                   class="mx-sm-4 mb-3"
                   *ngIf="submissionForm.controls.sector.value == 'other'"
                 >
-                  <label class="d-block">If other, specify:</label>
+                  <label class="d-block"
+                    >{{ translation?.labels.ifOtherSpecify }} :</label
+                  >
                   <input
                     autofocus=""
                     formControlName="sector_other"
@@ -539,9 +583,9 @@
             </div>
             <div class="form-group" id="targetAudienceCheckDiv">
               <label class="d-block"
-                >Which profession/occupation does your TG represent?
+                >{{ translation?.labels.targetOccupation }}
               </label>
-              <h6>Select all that apply.</h6>
+              <h6>{{ translation?.labels.selectAllThatApply }}</h6>
 
               <div *ngIf="targetAudienceErrorMessage">
                 <div class="error">
@@ -580,13 +624,15 @@
                     submissionForm.controls['target_audience'].errors.required
                   "
                 >
-                  Select target audience
+                  {{ translation?.messages.selectTargetAudience }}
                 </div>
                 <div
                   class="mx-sm-4 mb-3"
                   *ngIf="selectedTG.indexOf('other') != -1"
                 >
-                  <label class="d-block">If other, specify:</label>
+                  <label class="d-block"
+                    >{{ translation?.labels.ifOtherSpecify }} :</label
+                  >
                   <input
                     autofocus=""
                     formControlName="target_audience_other"
@@ -599,7 +645,7 @@
             </div>
             <div class="form-group">
               <label class="d-block"
-                >Which type of location does your TG belong to?
+                >{{ translation?.labels.targetLocation }}
               </label>
               <div class="field">
                 <select
@@ -607,7 +653,9 @@
                   formControlName="geography"
                   class="form-control ng-pristine ng-valid ng-touched"
                 >
-                  <option value="" disabled>Select location</option>
+                  <option value="" disabled>{{
+                    translation?.options.selectLocation
+                  }}</option>
                   <option
                     [value]="submissionGegraphy.value"
                     *ngFor="let submissionGegraphy of submissionGeographies"
@@ -620,22 +668,24 @@
                   "
                 >
                   <div class="error">
-                    Location is required.
+                    {{ translation?.messages.locationRequired }}
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group" id="specialConditionValue">
-              <label class="d-block"
-                >Do any special condition(s) apply to your TG?</label
-              >
+              <label class="d-block">{{
+                translation?.labels.specialCondition
+              }}</label>
               <div class="field">
                 <select
                   autofocus=""
                   formControlName="special_condition"
                   class="form-control ng-pristine ng-valid ng-touched"
                 >
-                  <option value="">Select special condition</option>
+                  <option value="">{{
+                    translation?.options.selectSpecialCondition
+                  }}</option>
                   <option
                     [value]="special.value"
                     *ngFor="let special of submissionSpecialCondition"
@@ -648,7 +698,9 @@
                     submissionForm.controls.special_condition.value == 'other'
                   "
                 >
-                  <label class="d-block">If other, specify:</label>
+                  <label class="d-block"
+                    >{{ translation?.labels.ifOtherSpecify }} :</label
+                  >
                   <input
                     autofocus=""
                     formControlName="special_condition_other"
@@ -668,26 +720,10 @@
 
           <hr />
           <div *ngIf="submissionStatus == 'draft'">
+            <h6 [innerHTML]="translation?.texts.termsOfSubmission"></h6>
             <h6>
-              TERMS OF SUBMISSION<br /><br />
-              I know that plagiarism means taking and using the ideas, writings,
-              works or graphics of another as if they were one's own. I know
-              that plagiarism not only includes verbatim copying, but also the
-              extensive use of another person's ideas without proper
-              acknowledgement (which includes the proper use of quotation
-              marks). I know that plagiarism covers this sort of use of material
-              found in textual sources and from the internet.
-              <br /><br />
-              I understand that my submission must be accurately and visibly
-              referenced if I have used any material (text, images, videos) that
-              is not my own.<br />
-              I confirm that this submission is my own work and is not
-              plagiarised from any other person's work (published or
-              unpublished).<br /><br />
-            </h6>
-            <h6>
-              <input type="checkbox" (change)="check($event)" />&nbsp;I have
-              read and understood the above.
+              <input type="checkbox" (change)="check($event)" />&nbsp;
+              {{ translation?.texts.agreeTerms }}
             </h6>
             <button
               id="submitSubmission"
@@ -701,9 +737,10 @@
               [disabled]="checkSubmit !== 'true'"
               class="btn trigger-btn btn-success"
             >
-              Submit
+              {{ translation?.buttons.submit }}
             </button>
-            <button (click)="resetSubmission()" class="btn">Reset</button
+            <button (click)="resetSubmission()" class="btn">
+              {{ translation?.buttons.reset }}</button
             ><br /><br />
           </div>
           <div
@@ -717,7 +754,7 @@
               data-toggle="modal"
               [disabled]="submissionForm.controls.withdraw_reasons.value == ''"
             >
-              Withdraw Submission
+              {{ translation?.buttons.withdrawSubmission }}
             </button>
             <br /><br />
           </div>
@@ -730,14 +767,16 @@
           >
             <div class="form-group" id="reasonValue">
               <div class="field">
-                <label>Withdraw Reason</label>
+                <label>{{ translation?.labels.withdrawReason }}</label>
                 <select
                   autofocus=""
                   formControlName="withdraw_reasons"
                   class="form-control ng-pristine ng-valid ng-touched"
                   placeholder="Select Reason"
                 >
-                  <option value="" disabled>Select reason</option>
+                  <option value="" disabled>{{
+                    translation?.options.selectReason
+                  }}</option>
                   <option
                     [value]="reason.value"
                     *ngFor="let reason of submissionWithdrawReasons"
@@ -746,7 +785,7 @@
                 </select>
                 <div *ngIf="submissionForm.controls['withdraw_reasons'].errors">
                   <div class="error" placeholder="Select Reason">
-                    Withdraw reason is required.
+                    {{ translation?.messages.withdrawReasonRequired }}
                   </div>
                 </div>
               </div>
@@ -762,8 +801,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h6>
-                    Do you really want to withdraw this submission? This process
-                    cannot be undone.
+                    {{ translation?.messages.withdrawWarning }}
                   </h6>
                   <button class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
@@ -771,14 +809,14 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-info" data-dismiss="modal">
-                    Cancel
+                    {{ translation?.buttons.cancel }}
                   </button>
                   <button
                     (click)="updateSubmission('withdrawn')"
                     data-dismiss="modal"
                     class="btn btn-danger"
                   >
-                    Withdraw
+                    {{ translation?.buttons.withdraw }}
                   </button>
                 </div>
               </div>
@@ -789,8 +827,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h6>
-                    Do you really want to submit this form? You will not be able
-                    to edit.
+                    {{ translation?.messages.submissionWarning }}
                   </h6>
                   <button class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
@@ -798,14 +835,14 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-info" data-dismiss="modal">
-                    Cancel
+                    {{ translation?.buttons.cancel }}
                   </button>
                   <button
                     (click)="updateSubmission('submitted')"
                     data-dismiss="modal"
                     class="btn btn-danger"
                   >
-                    Ok
+                    {{ translation?.buttons.ok }}
                   </button>
                 </div>
               </div>
@@ -815,7 +852,7 @@
             <div class="modal-dialog modal-confirm">
               <div class="modal-content center">
                 <div class="modal-header">
-                  <h6>Your creative is submitted successfully.</h6>
+                  <h6>{{ translation?.messages.submissionSuccessful }}</h6>
                   <button class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                   </button>
@@ -826,7 +863,7 @@
                     (click)="redirectToListView()"
                     class="btn btn-success"
                   >
-                    Ok
+                    {{ translation?.buttons.ok }}
                   </button>
                 </div>
               </div>

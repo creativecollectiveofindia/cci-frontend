@@ -7,7 +7,12 @@ import { HttpClient } from "@angular/common/http";
 export class TranslationService {
   constructor(private http: HttpClient) {}
 
-  public getTranslation(language) {
-    return this.http.get(`./assets/${language}.json`);
+  getTranslation() {
+    let preferredLanguage = localStorage.getItem("preferredLanguage");
+    if (!preferredLanguage) {
+      localStorage.setItem("preferredLanguage", "en");
+      preferredLanguage = "en";
+    }
+    return this.http.get(`./assets/${preferredLanguage}.json`);
   }
 }
