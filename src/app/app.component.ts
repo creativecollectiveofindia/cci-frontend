@@ -16,6 +16,16 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     public translationService: TranslationService
   ) {
+    let preferredLanguage = localStorage.getItem("preferredLanguage");
+    if (!preferredLanguage) {
+      localStorage.setItem("preferredLanguage", "en");
+      preferredLanguage = "en";
+    }
+    this.translationService.getTranslation().subscribe((data) => {
+      this.translation = data;
+      sessionStorage.setItem("translation", JSON.stringify(data));
+    });
+    console.log("translation", this.translation);
     setInterval(function () {
       if (authService.isLoggedIn()) {
         let user = JSON.parse(localStorage.getItem("currentUser"));
@@ -52,12 +62,5 @@ export class AppComponent implements OnInit {
       }
     }, 180000);
   }
-  ngOnInit() {
-    this.translationService.getTranslation().subscribe((data) => {
-      sessionStorage.setItem("translation", JSON.stringify(data));
-    });
-
-    this.translation = JSON.parse(sessionStorage.getItem("translation"));
-    console.log("translation", this.translation);
-  }
+  ngOnInit() {}
 }

@@ -4,9 +4,9 @@
   rel="stylesheet"
   type="text/css"
 />
-<app-header></app-header>
+<app-header [translation]="translation"></app-header>
 <div class="pagebody">
   <app-banner *ngIf="router.url == '/'"></app-banner>
   <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <app-footer [translation]="translation"></app-footer>
 </div>
