@@ -14,16 +14,8 @@ export class AppComponent implements OnInit {
   constructor(
     public router: Router,
     private authService: AuthService,
-    private translationService: TranslationService
+    public translationService: TranslationService
   ) {
-    if (!sessionStorage.getItem("translation")) {
-      this.translationService.getTranslation().subscribe((data) => {
-        sessionStorage.setItem("translation", JSON.stringify(data));
-        console.log(data);
-      });
-    }
-    this.translation = JSON.parse(sessionStorage.getItem("translation"));
-    console.log("translation", this.translation);
     setInterval(function () {
       if (authService.isLoggedIn()) {
         let user = JSON.parse(localStorage.getItem("currentUser"));
@@ -60,5 +52,12 @@ export class AppComponent implements OnInit {
       }
     }, 180000);
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.translationService.getTranslation().subscribe((data) => {
+      sessionStorage.setItem("translation", JSON.stringify(data));
+    });
+
+    this.translation = JSON.parse(sessionStorage.getItem("translation"));
+    console.log("translation", this.translation);
+  }
 }

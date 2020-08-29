@@ -74,7 +74,7 @@ export class SubmissionFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translationService: TranslationService
+    public translationService: TranslationService
   ) {
     this.translation = JSON.parse(sessionStorage.getItem("translation"));
   }
@@ -112,6 +112,7 @@ export class SubmissionFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.translation = JSON.parse(sessionStorage.getItem("translation"));
     this.submissionId = this.activatedRoute.snapshot.params.submission_id;
 
     this.getLanguageOptions();
