@@ -10,25 +10,12 @@ import { TranslationService } from "./services/translation.service";
 })
 export class AppComponent implements OnInit {
   title = "CCI";
-  translation: any = {};
+  translation: any;
   constructor(
     public router: Router,
     private authService: AuthService,
     public translationService: TranslationService
   ) {
-    let preferredLanguage = localStorage.getItem("preferredLanguage");
-    if (!preferredLanguage) {
-      localStorage.setItem("preferredLanguage", "en");
-      preferredLanguage = "en";
-    }
-    this.translationService.setLanguage(preferredLanguage);
-
-    this.translationService.fetchTranslation().subscribe((data) => {
-      this.translation = data;
-      this.translationService.shareTranslation(data);
-      sessionStorage.setItem("translation", JSON.stringify(data));
-    });
-
     setInterval(function () {
       if (authService.isLoggedIn()) {
         let user = JSON.parse(localStorage.getItem("currentUser"));
@@ -65,5 +52,19 @@ export class AppComponent implements OnInit {
       }
     }, 180000);
   }
-  ngOnInit() {}
+  ngOnInit() {
+    let preferredLanguage = localStorage.getItem("preferredLanguage");
+    if (!preferredLanguage) {
+      localStorage.setItem("preferredLanguage", "en");
+      preferredLanguage = "en";
+    }
+    this.translationService.setLanguage(preferredLanguage);
+    this.translationService.fetchTranslation().subscribe((data) => {
+      this.translationService.shareTranslation(data);
+      sessionStorage.setItem("translation", JSON.stringify(data));
+    });
+    this.translationService.translation.subscribe((result) => {
+      this.translation = result;
+    });
+  }
 }

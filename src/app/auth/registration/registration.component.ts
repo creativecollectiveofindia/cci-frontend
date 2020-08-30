@@ -34,7 +34,7 @@ export class RegistrationComponent implements OnInit {
   registration_id = "";
   registration: any = [];
   websiteErrorMessage = "";
-  translation: any = {};
+  translation: any;
 
   constructor(
     private userService: UserService,
@@ -43,10 +43,7 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private translationService: TranslationService
-  ) {
-    this.translation = this.translationService.getTranslation();
-    console.warn(this.translation);
-  }
+  ) {}
 
   registrationForm = this.fb.group({
     id: [""],
@@ -76,6 +73,10 @@ export class RegistrationComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.translationService.translation.subscribe((result) => {
+      this.translation = result;
+    });
+
     this.registration_id = this.activatedRoute.snapshot.params.registration_id;
 
     if (this.registration_id != undefined) {

@@ -11,7 +11,9 @@ export class LanguageSwitcherComponent implements OnInit {
   constructor(public translationService: TranslationService) {}
 
   ngOnInit() {
-    this.selectedLanguage = this.translationService.getLanguage();
+    this.translationService.language.subscribe((result) => {
+      this.selectedLanguage = result;
+    });
   }
   changeLanguage(event) {
     this.translationService.setLanguage(event.target.value);
@@ -21,7 +23,7 @@ export class LanguageSwitcherComponent implements OnInit {
       this.translationService.shareTranslation(data);
       sessionStorage.setItem("translation", JSON.stringify(data));
     });
-    location.reload();
+    //location.reload();
     console.log("Language switched to :", event.target.value);
   }
 }

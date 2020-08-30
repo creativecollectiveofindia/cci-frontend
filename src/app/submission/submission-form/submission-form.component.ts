@@ -26,7 +26,7 @@ export class SubmissionFormComponent implements OnInit {
   saveSuccessMessage = "";
   saveErrorMessage = "";
   submissionStatus = "";
-  translation: any = {};
+  translation: any;
 
   selectedTG = [];
   submissionId = "";
@@ -75,9 +75,7 @@ export class SubmissionFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public translationService: TranslationService
-  ) {
-    this.translation = JSON.parse(sessionStorage.getItem("translation"));
-  }
+  ) {}
 
   submissionForm = this.formBuilder.group({
     id: [""],
@@ -112,7 +110,9 @@ export class SubmissionFormComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.translation = JSON.parse(sessionStorage.getItem("translation"));
+    this.translationService.translation.subscribe((result) => {
+      this.translation = result;
+    });
     this.submissionId = this.activatedRoute.snapshot.params.submission_id;
 
     this.getLanguageOptions();

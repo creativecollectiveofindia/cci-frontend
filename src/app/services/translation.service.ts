@@ -8,28 +8,24 @@ import { BehaviorSubject } from "rxjs";
 export class TranslationService {
   constructor(private http: HttpClient) {}
 
-  public translation;
-  public language;
+  public translationSource = new BehaviorSubject<any>({});
+  public translation = this.translationSource.asObservable();
+  public languageSource = new BehaviorSubject<string>("en");
+  public language = this.languageSource.asObservable();
 
   fetchTranslation() {
-    return this.http.get(`./assets/${this.language}.json`);
+    let fetchLanguage = localStorage.getItem("preferredLanguage");
+    return this.http.get(`./assets/${fetchLanguage}.json`);
   }
 
   setLanguage(value) {
-    this.language = value;
+    this.languageSource.next(value);
     console.log("setLanguage", value);
   }
 
   shareTranslation(value) {
+    this.translationSource.next(value);
     this.translation = value;
     console.log("shareTranslation", value);
-  }
-
-  getLanguage() {
-    return this.language;
-  }
-
-  getTranslation() {
-    return this.translation;
   }
 }
