@@ -11,7 +11,7 @@ export class LanguageSwitcherComponent implements OnInit {
   constructor(public translationService: TranslationService) {}
 
   ngOnInit() {
-    this.translationService.language.subscribe((result) => {
+    this.translationService.getLanguage().subscribe((result) => {
       this.selectedLanguage = result;
     });
   }

@@ -73,7 +73,7 @@ export class RegistrationComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.translationService.translation.subscribe((result) => {
+    this.translationService.getTranslation().subscribe((result) => {
       this.translation = result;
     });
 

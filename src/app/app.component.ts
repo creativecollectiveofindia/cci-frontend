@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
       this.translationService.shareTranslation(data);
       sessionStorage.setItem("translation", JSON.stringify(data));
     });
-    this.translationService.translation.subscribe((result) => {
+    this.translationService.getTranslation().subscribe((result) => {
       this.translation = result;
     });
   }

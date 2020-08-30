@@ -110,7 +110,7 @@ export class SubmissionFormComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.translationService.translation.subscribe((result) => {
+    this.translationService.getTranslation().subscribe((result) => {
       this.translation = result;
     });
     this.submissionId = this.activatedRoute.snapshot.params.submission_id;
