@@ -10,6 +10,7 @@ import {
 import { Submission } from "../submission";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
+import { TranslationService } from "../../services/translation.service";
 
 @Component({
   selector: "app-published-list",
@@ -27,16 +28,21 @@ export class PublishedListComponent implements OnInit {
   filters = "";
   statusFilter = "";
   submissionFiles = [];
+  translation: any;
 
   constructor(
     private CollectionService: CollectionService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private AuthService: AuthService,
-    private router: Router
+    private router: Router,
+    public translationService: TranslationService
   ) {}
 
   ngOnInit() {
+    this.translationService.getTranslation().subscribe((result) => {
+      this.translation = result;
+    });
     this.getSubmissionList();
   }
 

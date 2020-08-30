@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CollectionService } from "../../services/collection.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { TranslationService } from "../../services/translation.service";
 
 @Component({
   selector: "app-published-detail",
@@ -13,13 +14,18 @@ export class PublishedDetailComponent implements OnInit {
   categoryDetail: any = [];
   submissionFiles: any = [];
   submissionId = "";
+  translation: any;
 
   constructor(
     private CollectionService: CollectionService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public translationService: TranslationService
   ) {}
 
   ngOnInit() {
+    this.translationService.getTranslation().subscribe((result) => {
+      this.translation = result;
+    });
     this.submissionId = this.activatedRoute.snapshot.params.submission_id;
     this.getSubmission();
   }

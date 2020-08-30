@@ -9,7 +9,9 @@
     "submission": "Submission",
     "submissionDetails": "Submission Details",
     "targetAudience": "About the target audience (TG)",
-    "login": "Login"
+    "login": "Login",
+    "featuredContent": "Featured Content",
+    "contentDetails": "Content details"
   },
   "links": {
     "newSubmission": "New Submission",
@@ -38,7 +40,10 @@
     "withdraw": "Withdraw",
     "withdrawSubmission": "Withdraw Submission",
     "forgotPassword": "Forgot Password?",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "viewSubmission": "View Submission",
+    "previous": "Previous",
+    "next": "Next"
   },
   "labels": {
     "firstName": "First Name",
@@ -90,7 +95,16 @@
     "additionalDetails": "Do you want to fill additional details?",
     "enterSector": "Enter sector",
     "enterTargetAudience": "Enter target audience",
-    "enterSpecialCondition": "Enter special condition"
+    "enterSpecialCondition": "Enter special condition",
+    "challenge": "Challenge",
+    "topic": "Topic",
+    "creator": "Creator",
+    "creativeTesting": "Creative Testing",
+    "targetAudience": "Target Audience",
+    "language": "Language",
+    "location": "Location",
+    "region": "Region",
+    "pages": "Pages"
   },
   "options": {
     "yes": "Yes",
@@ -108,7 +122,6 @@
     "chooseMediaType": "Choose media type",
     "browseFile": "Browse for file",
     "selectRegion": "Select Region",
-
     "selectIncomeBracket": "Select income bracket",
     "selectGender": "Select gender",
     "selectAgeGroup": "Select age group",
@@ -166,7 +179,8 @@
     "wrongEmail": "Entered E-Mail Id is incorrect",
     "resetPasswordEmail": "please check your mail to reset your password",
     "resetpasswordFailed": "Unable to reset your password",
-    "enterEmail": "Enter E-Mail Id"
+    "enterEmail": "Enter E-Mail Id",
+    "noContentFound": "No content found"
   },
   "languages": {
     "choosePrimaryLanguage": "Choose primary language",

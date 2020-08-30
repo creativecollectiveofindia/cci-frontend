@@ -9,7 +9,9 @@
     "submission": "प्रस्तुतीकरण",
     "submissionDetails": "प्रस्तुति का विवरण",
     "targetAudience": "लक्षित दर्शकों (TG) के बारे में",
-    "login": "लॉग इन"
+    "login": "लॉग इन",
+    "featuredContent": "Featured Content",
+    "contentDetails": "Content details"
   },
   "links": {
     "newSubmission": "New Submission",
@@ -38,7 +40,10 @@
     "withdraw": "वापस करें",
     "withdrawSubmission": "प्रस्तुतीकरण वापस करें",
     "forgotPassword": "पासवर्ड भूल गए?",
-    "signIn": "साइन इन"
+    "signIn": "साइन इन",
+    "viewSubmission": "प्रस्तुतीकरण देखें",
+    "previous": "पिछला",
+    "next": "आगे"
   },
   "labels": {
     "firstName": "पहला नाम",
@@ -55,18 +60,18 @@
     "languagePreferences": "उपरोक्त विषय-वस्तु के लिए, कृपया अपनी भाषा की प्राथमिकता का संकेत दें",
     "primaryLanguage": "प्राथमिक भाषा",
     "secondaryLanguage": "माध्यमिक भाषा",
-    "introduction": "INTRODUCTION",
+    "introduction": "परिचय",
     "creativeBrief": "रचनात्मक संक्षिप्त विवरण",
-    "keyBehaviour": "Key behaviour",
-    "goodToHaveInfo": "Good to have information",
-    "challengeGoal": "CHALLENGE GOAL",
+    "keyBehaviour": "प्रमुख व्यवहार",
+    "goodToHaveInfo": "जानकारी के लिए अच्छा है",
+    "challengeGoal": "चुनौती का लक्ष्य",
     "title": "शीर्षक",
     "enterTitle": "शीर्षक",
-    "submittedOn": "Submitted On",
+    "submittedOn": "ज़मा करने का समय",
     "status": "स्थिति",
     "chooseChallenge": "चुनौती चुनें",
     "chooseTopic": "विषय चुनें",
-    "enterTopic": "Enter topic",
+    "enterTopic": "विषय दर्ज करें",
     "chooseMediaType": "मीडिया प्रकार चुनें",
     "targetLanguage": "आप किन भाषाओं को लक्षित कर रहे हैं? ",
     "selectAnyTwo": "लागू होने वाले किसी भी दो का चयन करें।",
@@ -90,7 +95,16 @@
     "additionalDetails": "क्या आप अतिरिक्त विवरण भरना चाहते हैं?",
     "enterSector": "Enter sector",
     "enterTargetAudience": "Enter target audience",
-    "enterSpecialCondition": "Enter special condition"
+    "enterSpecialCondition": "Enter special condition",
+    "challenge": "चुनौती",
+    "topic": "विषय",
+    "creator": "रचनाकार",
+    "creativeTesting": "रचनात्मक परीक्षण",
+    "targetAudience": "लक्षित दर्शक",
+    "language": "भाषा",
+    "location": "स्थान",
+    "region": "क्षेत्र",
+    "pages": "पृष्ठ"
   },
   "options": {
     "yes": "हाँ",
@@ -165,7 +179,8 @@
     "wrongEmail": "Entered E-Mail Id is incorrect",
     "resetPasswordEmail": "please check your mail to reset your password",
     "resetpasswordFailed": "Unable to reset your password",
-    "enterEmail": "Enter E-Mail Id"
+    "enterEmail": "Enter E-Mail Id",
+    "noContentFound": "No content found"
   },
   "languages": {
     "choosePrimaryLanguage": "अपनी भाषा चुनें",

@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="media-body">
-        <h1>Featured Content</h1>
+        <h1>{{ translation?.headings.featuredContent }}</h1>
         <br />
         <div class="alert alert-warning" *ngIf="submissionList.length == 0">
-          No content found
+          {{ translation?.messages.noContentFound }}
         </div>
         <ul class="list-unstyled" *ngFor="let list of submissionList">
           <div class="row">
@@ -14,20 +14,26 @@
                 <h3 class="media-heading">{{ list.title }}</h3>
               </li>
               <p class="text-left text-justify">
-                <span>Challenge - {{ list.challenge_name }} </span>
+                <span
+                  >{{ translation?.labels.challenge }} -
+                  {{ list.challenge_name }}
+                </span>
               </p>
               <p class="text-left text-justify">
-                <span>Topic - {{ list.topic }} </span>
+                <span>{{ translation?.labels.topic }} - {{ list.topic }} </span>
               </p>
               <p class="text-left text-justify">
-                <span>Creator - {{ list.owner_name }}</span>
+                <span
+                  >{{ translation?.labels.creator }} -
+                  {{ list.owner_name }}</span
+                >
               </p>
               <p>
                 <button
                   class="btn btn-outline-primary"
                   routerLink="/published-detail/{{ list.id }}"
                 >
-                  View Submission
+                  {{ translation?.buttons.viewSubmission }}
                 </button>
               </p>
             </div>
@@ -44,18 +50,19 @@
         </ul>
         <br />
         <p>
-          Pages:
+          {{ translation?.labels.pages }}:
           <a
             [routerLink]=""
             [class.disabled]="offset == 0"
             (click)="getSubmissionList(true, false)"
-            >Previous </a
-          >|
+            >{{ translation?.buttons.previous }}</a
+          >
+          |
           <a
             [routerLink]=""
             [class.disabled]="submissionList.length < limit"
             (click)="getSubmissionList(false, true)"
-            >Next</a
+            >{{ translation?.buttons.next }}</a
           >
         </p>
       </div>

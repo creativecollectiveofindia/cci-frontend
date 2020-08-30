@@ -1,47 +1,54 @@
 <div id="container" class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8 center review-heading">
-      <h1>Content details</h1>
+      <h1>{{ translation?.headings.contentDetails }}</h1>
     </div>
     <div class="col-sm-12 col-md-8 center">
       <div class="box">
         <div class="submission-content">
           <div *ngIf="this.submissionDetail.title">
-            Title:
+            {{ translation?.labels.title }}:
             <span style="font-weight: bold;">{{ submissionDetail.title }}</span>
           </div>
           <div *ngIf="this.submissionDetail.modified_on">
-            Submitted On:
+            {{ translation?.labels.submittedOn }}:
             {{ submissionDetail.modified_on | date: ["MMM d, y, h:mm"] }}
           </div>
           <div *ngIf="this.submissionDetail.status">
-            Status: {{ humanize(submissionDetail.status) }}
+            {{ translation?.labels.status }}:
+            {{ humanize(submissionDetail.status) }}
           </div>
           <div *ngIf="this.submissionDetail.creative_testing">
-            Creative Testing: {{ this.submissionDetail.creative_testing }}
+            {{ translation?.labels.creativeTesting }}:
+            {{ this.submissionDetail.creative_testing }}
           </div>
           <br />
           <div *ngIf="this.categoryDetail.title">
-            Challenge: {{ this.categoryDetail.title }}
+            {{ translation?.labels.challenge }}: {{ this.categoryDetail.title }}
           </div>
-          <div *ngIf="this.challengeDetail.title">
-            Topic: {{ this.challengeDetail.title }}
+          <div *ngIf="this.challengeDetail.topic">
+            {{ translation?.labels.topic }}: {{ this.challengeDetail.topic }}
           </div>
           <div *ngIf="this.submissionDetail.key_behaviour">
-            Key Behaviour: {{ this.submissionDetail.key_behaviour }}
+            {{ translation?.labels.keyBehaviour }}:
+            {{ this.submissionDetail.key_behaviour }}
           </div>
           <br />
           <div *ngIf="this.submissionDetail.target_audience?.length">
-            Target Audience: {{ humanize(submissionDetail.target_audience) }}
+            {{ translation?.labels.targetAudience }}:
+            {{ humanize(submissionDetail.target_audience) }}
           </div>
           <div *ngIf="this.submissionDetail.language?.length">
-            Language: {{ humanize(this.submissionDetail.language) }}
+            {{ translation?.labels.language }}:
+            {{ humanize(this.submissionDetail.language) }}
           </div>
           <div *ngIf="this.submissionDetail.geography?.length">
-            Location: {{ humanize(this.submissionDetail.geography) }}
+            {{ translation?.labels.location }}:
+            {{ humanize(this.submissionDetail.geography) }}
           </div>
           <div *ngIf="this.submissionDetail.region?.length">
-            Region: {{ humanize(this.submissionDetail.region) }}
+            {{ translation?.labels.region }}:
+            {{ humanize(this.submissionDetail.region) }}
           </div>
         </div>
       </div>
