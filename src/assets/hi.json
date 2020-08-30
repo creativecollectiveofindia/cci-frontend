@@ -4,22 +4,25 @@
   },
   "headings": {
     "registration": "रजिस्ट्रीकरण",
-    "editprofile": "Edit Profile",
-    "creativeBrief": "Creative Brief",
+    "editprofile": "प्रोफ़ाइल संपादित करें",
+    "creativeBrief": "रचनात्मक संक्षिप्त विवरण",
     "submission": "प्रस्तुतीकरण",
     "submissionDetails": "प्रस्तुति का विवरण",
-    "targetAudience": "लक्षित दर्शकों (TG) के बारे में"
+    "targetAudience": "लक्षित दर्शकों (TG) के बारे में",
+    "login": "लॉग इन"
   },
   "buttons": {
-    "register": "Register",
-    "update": "Update",
-    "ok": "Ok",
-    "skip": "Skip",
+    "register": "रजिस्टर",
+    "update": "अपडेट करें",
+    "ok": "ठीक है",
+    "skip": "छोड़ें",
     "submit": "जमा करें",
     "reset": "पुनः",
-    "cancel": "Cancel",
-    "withdraw": "Withdraw",
-    "withdrawSubmission": "Withdraw Submission"
+    "cancel": "रद्द करना",
+    "withdraw": "वापस करें",
+    "withdrawSubmission": "प्रस्तुतीकरण वापस करें",
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "signIn": "साइन इन"
   },
   "labels": {
     "firstName": "पहला नाम",
@@ -51,7 +54,7 @@
     "chooseMediaType": "मीडिया प्रकार चुनें",
     "targetLanguage": "आप किन भाषाओं को लक्षित कर रहे हैं? ",
     "selectAnyTwo": "लागू होने वाले किसी भी दो का चयन करें।",
-    "ifOtherSpecify": "If other, specify",
+    "ifOtherSpecify": "यदि अन्य, निर्दिष्ट करें",
     "regionbelongTo": "आपका लक्षित समूह किस क्षेत्र / राज्य से है? ",
     "incomeBracket": "आपके लक्षित दर्शक किस आय वर्ग से संबंधित हैं?",
     "targetGender": "क्या आप किसी विशिष्ट लिंग को लक्षित कर रहे हैं?",
@@ -62,7 +65,10 @@
     "selectAllThatApply": "लागू होने वाले सभी का चयन करें।",
     "targetLocation": "आपका लक्षित समूह किस प्रकार के स्थान से संबंधित है? ",
     "specialCondition": "क्या कोई विशेष स्थिति आपके लक्षित समूह पर लागू होती है?",
-    "withdrawReason": "Withdraw Reason"
+    "withdrawReason": "Withdraw Reason",
+    "newUser": "नया उपयोगकर्ता?",
+    "registeredEmail": "आपके द्वारा पंजीकृत ईमेल दर्ज करें",
+    "enterYourPassword": "अपना पासवर्ड डालें"
   },
   "options": {
     "yes": "हाँ",
@@ -91,14 +97,15 @@
     "selectReason": "Select reason"
   },
   "messages": {
-    "firstNameRequired": "First name is required.",
-    "lastNameRequired": "Last name is required.",
-    "emailRequired": "E-Mail Id is required.",
-    "invalidEmail": "Invalid E-Mail Id.",
-    "passwordSmall": "Password should contain atleast 6 letters",
-    "passwordNotMatch": "Password does not match!",
-    "contactNumberRequired": "Contact number is required.",
-    "contactNumberInvalid": "Invalid contact number.",
+    "firstNameRequired": "पहला नाम आवश्यक है",
+    "lastNameRequired": "अंतिम नाम आवश्यक है",
+    "emailRequired": "ई-मेल आईडी आवश्यक है",
+    "invalidEmail": "अमान्य ई-मेल आईडी",
+    "passwordSmall": "पासवर्ड में कम से कम 6 अक्षर होने चाहिए",
+    "passwordRequired": "पासवर्ड आवश्यक है",
+    "passwordNotMatch": "पासवर्ड मैच नहीं कर रहा है!",
+    "contactNumberRequired": "फ़ोन नंबर आवश्यक है",
+    "contactNumberInvalid": "अमान्य फ़ोन नंबर",
     "selectEitherOption": "Please select either of the options",
     "selectTwoLanguage": "Please select any TWO languages that apply.",
     "selectOtherLanguage": "Please specify other language.",
@@ -132,7 +139,12 @@
     "submissionUneditable": "You can not update your submission once it is submitted.",
     "submissionSuccessful": "Your creative is submitted successfully.",
     "provideSpecialCondition": "Please provide other special condition.",
-    "somethingWentWrong": "Something went wrong, Please try again later."
+    "somethingWentWrong": "Something went wrong, Please try again later.",
+    "loginFailed": "E-Mail and password do not match or you do not have an account yet.",
+    "wrongEmail": "Entered E-Mail Id is incorrect",
+    "resetPasswordEmail": "please check your mail to reset your password",
+    "resetpasswordFailed": "Unable to reset your password",
+    "enterEmail": "Enter E-Mail Id"
   },
   "languages": {
     "choosePrimaryLanguage": "अपनी भाषा चुनें",
@@ -166,6 +178,7 @@
   },
   "texts": {
     "termsOfSubmission": "प्रस्तुतीकरण के नियम<br /><br /> मुझे पता है कि साहित्यिक चोरी का अर्थ है किसी दूसरे के विचारों, लेखन, कार्यों या ग्राफिक्स का उपयोग करना जैसे कि वे स्वयं के थे। मुझे ज्ञात है कि साहित्यिक चोरी में न केवल क्रियात्मक नकल शामिल है, बल्कि किसी अन्य व्यक्ति के विचारों का व्यापक उपयोग बिना उचित प्राप्ति सूचना (जिसमें उद्धरण चिह्नों का उचित उपयोग भी शामिल है) शामिल है। मुझे ज्ञात है कि साहित्यिक चोरी में इस तरह की प्रस्तुति का उपयोग किया जाता है जो कि पाठ्य-स्रोतों में और इंटरनेट पर पाए जाते हैं। <br /><br /> मैं समझता/ समझती हूं कि मेरे प्रस्तुतीकरण में अगर कोई प्रस्तुति (पाठ, चित्र, वीडियो)ऐसी है जो मेरी नहीं है उसकी प्राप्ति सूचना सही और प्रत्यक्ष रूप से देनी होगी।<br /> मैं पुष्टि करता/ करती हूं कि यह प्रस्तुतीकरण मेरा अपना काम है और किसी अन्य व्यक्ति के काम (प्रकाशित या अप्रकाशित) चोरी नहीं किया गया है।",
-    "agreeTerms": "मैंने उपरोक्त को पढ़ा और समझा है।"
+    "agreeTerms": "मैंने उपरोक्त को पढ़ा और समझा है।",
+    "signInPageText": "<p>इस फोरम में क्रिएटिव क्षेत्र से जुड़े इंडिया के सभी लोग शामिल हो सकते हैं जैसे सिनेमा और नाटक-कला के कलाकार लोक कला से जुड़े कलाकार, विजुअल मीडिया कलाकार, डिज़ाइनर, कवि, कठपुतली कला से जुड़े कलाकार, स्ट्रैटिजिस्ट, कॉमेडियन, सोशल मीडिया एन्थूज़ीऐस्ट, संगीतकार, एनिमेटर, UI / UX डिज़ाइनर, PR व्यावसायिक, लेखक और कहानीकार. अगर आप किसी भी क्रिएटिय क्षेत्र से जुड़े हैं,तो आप CCI में शामिल हैं</p>"
   }
 }

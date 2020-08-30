@@ -8,7 +8,8 @@
     "creativeBrief": "Creative Brief",
     "submission": "Submission",
     "submissionDetails": "Submission Details",
-    "targetAudience": "About the target audience (TG)"
+    "targetAudience": "About the target audience (TG)",
+    "login": "Login"
   },
   "buttons": {
     "register": "Register",
@@ -19,7 +20,9 @@
     "reset": "Reset",
     "cancel": "Cancel",
     "withdraw": "Withdraw",
-    "withdrawSubmission": "Withdraw Submission"
+    "withdrawSubmission": "Withdraw Submission",
+    "forgotPassword": "Forgot Password?",
+    "signIn": "Sign In"
   },
   "labels": {
     "firstName": "First Name",
@@ -62,7 +65,10 @@
     "selectAllThatApply": "Select all that apply.",
     "targetLocation": "Which type of location does your TG belong to?",
     "specialCondition": "Do any special condition(s) apply to your TG?",
-    "withdrawReason": "Withdraw Reason"
+    "withdrawReason": "Withdraw Reason",
+    "newUser": "New User?",
+    "registeredEmail": "Enter email you registered with",
+    "enterYourPassword": "Enter your password"
   },
   "options": {
     "yes": "Yes",
@@ -96,6 +102,7 @@
     "emailRequired": "E-Mail Id is required.",
     "invalidEmail": "Invalid E-Mail Id.",
     "passwordSmall": "Password should contain atleast 6 letters",
+    "passwordRequired": "Password is required.",
     "passwordNotMatch": "Password does not match!",
     "contactNumberRequired": "Contact number is required.",
     "contactNumberInvalid": "Invalid contact number.",
@@ -132,7 +139,12 @@
     "submissionUneditable": "You can not update your submission once it is submitted.",
     "submissionSuccessful": "Your creative is submitted successfully.",
     "provideSpecialCondition": "Please provide other special condition.",
-    "somethingWentWrong": "Something went wrong, Please try again later."
+    "somethingWentWrong": "Something went wrong, Please try again later.",
+    "loginFailed": "E-Mail and password do not match or you do not have an account yet.",
+    "wrongEmail": "Entered E-Mail Id is incorrect",
+    "resetPasswordEmail": "please check your mail to reset your password",
+    "resetpasswordFailed": "Unable to reset your password",
+    "enterEmail": "Enter E-Mail Id"
   },
   "languages": {
     "choosePrimaryLanguage": "Choose primary language",
@@ -166,6 +178,7 @@
   },
   "texts": {
     "termsOfSubmission": "TERMS OF SUBMISSION<br /><br /> I know that plagiarism means taking and using the ideas, writings, works or graphics of another as if they were one's own. I know that plagiarism not only includes verbatim copying, but also the extensive use of another person's ideas without proper acknowledgement (which includes the proper use of quotation marks). I know that plagiarism covers this sort of use of material found in textual sources and from the internet. <br /><br /> I understand that my submission must be accurately and visibly referenced if I have used any material (text, images, videos) that is not my own.<br /> I confirm that this submission is my own work and is not plagiarised from any other person's work (published or unpublished).",
-    "agreeTerms": "I have read and understood the above."
+    "agreeTerms": "I have read and understood the above.",
+    "signInPageText": "<strong>This open forum embraces everyone from the creative industry.</strong><br /><br /><p>Cinema and Theatre Artistes, Folk artists, Visual Media Artists, Designers, Poets, Puppeteers, Strategists, Comedians, Social Media Enthusiasts, Musicians, Animators, UI/UX designers, PR Professionals, Writers – you name it – we are all a part of CCI.</p>"
   }
 }

@@ -1,70 +1,103 @@
 <section class="login-wrap mtb-40">
   <div class="container">
-      <div class="row" *ngIf="!error">
-        <div class="col-md-6 d-none d-sm-block">
-          <div>
-            <img src="assets/images/cci-banner1.png" width="400px">
-          </div>
-          <div>
-            <strong>This open forum embraces everyone from the creative industry.</strong><br><br>
-            <p>
-              Cinema and Theatre Artistes, Folk artists, Visual Media Artists, Designers, Poets, Puppeteers, Strategists, Comedians, Social Media Enthusiasts, Musicians, Animators, UI/UX designers, PR Professionals, Writers – you name it – we are all a part of CCI.
-            </p>
-          </div>
+    <div class="row" *ngIf="!error">
+      <div class="col-md-6 d-none d-sm-block">
+        <div>
+          <img src="assets/images/cci-banner1.png" width="400px" />
         </div>
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-sm-12 col-md-4">
-          <div>&nbsp;</div>
-          <div>&nbsp;</div>
-          <h2>Login</h2>
-          <div class="alert alert-danger" *ngIf="loginError">
-              {{loginError}}
-          </div>
-          <div class="alert alert-success" *ngIf="resetSuccess">
-            {{ resetSuccess }}
-          </div>
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-              <div class="form-group">
-                  <label class="control-label">E-Mail Id</label>
-                  <input type="text" formControlName="username" class="form-control" placeholder="Enter email you registered with" required>
-                  <div *ngIf="username.invalid && (username.dirty || username.touched)" class="error">
-                    <div *ngIf="username.errors.required">
-                      E-Mail Id is required.
-                    </div>
-                  </div>
-                  <div *ngIf="username.invalid && (username.dirty || username.touched)" class="error">
-                    <div *ngIf="username.errors.email">
-                      Invalid E-Mail Id.
-                    </div>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="control-label">Password</label>
-                  <input type="password" formControlName="password" class="form-control" placeholder="Enter your password" required>
-                  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
-                    <div *ngIf="password.errors">
-                      Password is required.
-                    </div>
-                  </div>
-                  <a href="javascript:void(0);" (click)="forgotPassword()" style="font-size: 15px;">Forgot Password?</a>
-              </div>
-              <div class="form-group">
-                  <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary btn-lg btn-block">Sign In</button>
-              </div>
-          </form>
-          <br>
-          <div>
-            <p>New User?</p>
-          </div>
-          <div>
-            <a routerLink="/registration" class="btn btn-outline-primary btn-block">Register</a>
-          </div>
-        </div>
-        <div class="col-md-1">&nbsp;</div>
+        <div [innerHTML]="translation?.texts.signInPageText"></div>
       </div>
-      <div class="service-error" *ngIf="error">
-        <h1>{{error.errorTitle}}</h1>
-        <h3>{{error.errorDesc}}</h3>
-     </div>
+      <div class="col-md-1">&nbsp;</div>
+      <div class="col-sm-12 col-md-4">
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <h2>{{ translation?.headings.login }}</h2>
+        <div class="alert alert-danger" *ngIf="loginError">
+          {{ loginError }}
+        </div>
+        <div class="alert alert-success" *ngIf="resetSuccess">
+          {{ resetSuccess }}
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label class="control-label">{{ translation?.labels.email }}</label>
+            <input
+              type="text"
+              formControlName="username"
+              class="form-control"
+              [placeholder]="translation?.labels.registeredEmail"
+              required
+            />
+            <div
+              *ngIf="username.invalid && (username.dirty || username.touched)"
+              class="error"
+            >
+              <div *ngIf="username.errors.required">
+                {{ translation?.messages.emailRequired }}
+              </div>
+            </div>
+            <div
+              *ngIf="username.invalid && (username.dirty || username.touched)"
+              class="error"
+            >
+              <div *ngIf="username.errors.email">
+                {{ translation?.messages.invalidEmail }}
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">{{
+              translation?.labels.password
+            }}</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              [placeholder]="translation?.labels.enterYourPassword"
+              required
+            />
+            <div
+              *ngIf="password.invalid && (password.dirty || password.touched)"
+              class="error"
+            >
+              <div *ngIf="password.errors">
+                {{ translation?.messages.passwordRequired }}
+              </div>
+            </div>
+            <a
+              href="javascript:void(0);"
+              (click)="forgotPassword()"
+              style="font-size: 15px;"
+              >{{ translation?.buttons.forgotPassword }}</a
+            >
+          </div>
+          <div class="form-group">
+            <button
+              type="submit"
+              [disabled]="!loginForm.valid"
+              class="btn btn-primary btn-lg btn-block"
+            >
+              {{ translation?.buttons.signIn }}
+            </button>
+          </div>
+        </form>
+        <br />
+        <div>
+          <p>{{ translation?.labels.newUser }}</p>
+        </div>
+        <div>
+          <a
+            routerLink="/registration"
+            class="btn btn-outline-primary btn-block"
+            >{{ translation?.buttons.register }}</a
+          >
+        </div>
+      </div>
+      <div class="col-md-1">&nbsp;</div>
+    </div>
+    <div class="service-error" *ngIf="error">
+      <h1>{{ error.errorTitle }}</h1>
+      <h3>{{ error.errorDesc }}</h3>
+    </div>
   </div>
 </section>
