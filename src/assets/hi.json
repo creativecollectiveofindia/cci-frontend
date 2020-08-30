@@ -11,6 +11,22 @@
     "targetAudience": "लक्षित दर्शकों (TG) के बारे में",
     "login": "लॉग इन"
   },
+  "links": {
+    "newSubmission": "New Submission",
+    "viewSubmission": "View Submissions",
+    "featuredContent": "Featured Content",
+    "toolkit": "Toolkit",
+    "creativeBrief": "Creative Brief",
+    "howToParticipate": "How To Participate",
+    "faqs": "FAQ's",
+    "challenges": "Challenges",
+    "getinTouch": "Get in touch",
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "editProfile": "Edit profile",
+    "logout": "Logout"
+  },
   "buttons": {
     "register": "रजिस्टर",
     "update": "अपडेट करें",
@@ -92,12 +108,11 @@
     "chooseMediaType": "मीडिया प्रकार चुनें",
     "browseFile": "फाइल खोजें",
     "selectRegion": "क्षेत्र का चयन करें",
-
     "selectIncomeBracket": "आय वर्ग का चयन करें",
     "selectGender": "लिंग चुनें",
     "selectAgeGroup": "आयु वर्ग का चयन करें",
     "selectEducationBackground": "शैक्षिक पृष्ठभूमि का चयन करें",
-    "selectSector": "Select sector",
+    "selectSector": "क्षेत्र चुनें",
     "selectLocation": "Select location",
     "selectSpecialCondition": "विशेष स्थिति का चयन करें",
     "selectReason": "Select reason"

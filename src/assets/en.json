@@ -11,6 +11,22 @@
     "targetAudience": "About the target audience (TG)",
     "login": "Login"
   },
+  "links": {
+    "newSubmission": "New Submission",
+    "viewSubmission": "View Submissions",
+    "featuredContent": "Featured Content",
+    "toolkit": "Toolkit",
+    "creativeBrief": "Creative Brief",
+    "howToParticipate": "How To Participate",
+    "faqs": "FAQ's",
+    "challenges": "Challenges",
+    "getinTouch": "Get in touch",
+    "home": "Home",
+    "login": "Login",
+    "register": "Register",
+    "editProfile": "Edit profile",
+    "logout": "Logout"
+  },
   "buttons": {
     "register": "Register",
     "update": "Update",
