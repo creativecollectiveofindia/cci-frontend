@@ -68,7 +68,13 @@
     "withdrawReason": "Withdraw Reason",
     "newUser": "New User?",
     "registeredEmail": "Enter email you registered with",
-    "enterYourPassword": "Enter your password"
+    "enterYourPassword": "Enter your password",
+    "enterLanguage": "Enter language",
+    "enterGender": "Enter gender",
+    "additionalDetails": "Do you want to fill additional details?",
+    "enterSector": "Enter sector",
+    "enterTargetAudience": "Enter target audience",
+    "enterSpecialCondition": "Enter special condition"
   },
   "options": {
     "yes": "Yes",
@@ -86,7 +92,7 @@
     "chooseMediaType": "Choose media type",
     "browseFile": "Browse for file",
     "selectRegion": "Select Region",
-    "additionalDetails": "Do you want to fill additional details?",
+
     "selectIncomeBracket": "Select income bracket",
     "selectGender": "Select gender",
     "selectAgeGroup": "Select age group",

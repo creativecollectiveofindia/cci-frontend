@@ -69,7 +69,7 @@
                   formControlName="title"
                   class="form-control ng-pristine ng-valid ng-touched"
                   type="text"
-                  placeholder="Enter title"
+                  [placeholder]="translation?.labels.enterTitle"
                 />
                 <div
                   class="ui pointing error basic label below"
@@ -152,7 +152,6 @@
                   formControlName="challenge"
                   class="form-control ng-pristine ng-valid ng-touched"
                   (change)="onChanges($event)"
-                  placeholder="Enter topic"
                 >
                   <option value="" disabled
                     >{{ translation?.labels.chooseTopic }}
@@ -352,7 +351,7 @@
                   formControlName="language_other"
                   class="form-control ng-pristine ng-valid ng-touched"
                   type="text"
-                  placeholder="Enter language"
+                  [placeholder]="translation?.labels.enterLanguage"
                 />
               </div>
             </div>
@@ -469,7 +468,7 @@
                   formControlName="gender_other"
                   class="form-control ng-pristine ng-valid ng-touched"
                   type="text"
-                  placeholder="Enter gender"
+                  [placeholder]="translation?.labels.enterGender"
                 />
               </div>
               <div *ngIf="genderErrorMessage">
@@ -571,7 +570,7 @@
                     formControlName="sector_other"
                     class="form-control ng-pristine ng-valid ng-touched"
                     type="text"
-                    placeholder="Enter sector"
+                    [placeholder]="translation?.labels.enterSector"
                   />
                 </div>
                 <div *ngIf="sectorErrorMessage">
@@ -638,7 +637,7 @@
                     formControlName="target_audience_other"
                     class="form-control ng-pristine ng-valid ng-touched"
                     type="text"
-                    placeholder="Enter target audience"
+                    [placeholder]="translation?.labels.enterTargetAudience"
                   />
                 </div>
               </div>
@@ -706,7 +705,7 @@
                     formControlName="special_condition_other"
                     class="form-control ng-pristine ng-valid ng-touched"
                     type="text"
-                    placeholder="Enter special condition"
+                    [placeholder]="translation?.labels.enterSpecialCondition"
                   />
                 </div>
                 <div *ngIf="specialAudienceErrorMessage">
@@ -772,7 +771,6 @@
                   autofocus=""
                   formControlName="withdraw_reasons"
                   class="form-control ng-pristine ng-valid ng-touched"
-                  placeholder="Select Reason"
                 >
                   <option value="" disabled>{{
                     translation?.options.selectReason
@@ -784,7 +782,7 @@
                   >
                 </select>
                 <div *ngIf="submissionForm.controls['withdraw_reasons'].errors">
-                  <div class="error" placeholder="Select Reason">
+                  <div class="error">
                     {{ translation?.messages.withdrawReasonRequired }}
                   </div>
                 </div>
