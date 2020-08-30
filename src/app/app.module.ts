@@ -41,7 +41,7 @@ import { TranslationService } from "./services/translation.service";
     AppRoutingModule,
     HttpModule,
   ],
-  providers: [Title, httpInterceptorProviders],
+  providers: [Title, httpInterceptorProviders, TranslationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

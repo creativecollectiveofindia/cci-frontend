@@ -21,11 +21,14 @@ export class AppComponent implements OnInit {
       localStorage.setItem("preferredLanguage", "en");
       preferredLanguage = "en";
     }
-    this.translationService.getTranslation().subscribe((data) => {
+    this.translationService.setLanguage(preferredLanguage);
+
+    this.translationService.fetchTranslation().subscribe((data) => {
       this.translation = data;
+      this.translationService.shareTranslation(data);
       sessionStorage.setItem("translation", JSON.stringify(data));
     });
-    console.log("translation", this.translation);
+
     setInterval(function () {
       if (authService.isLoggedIn()) {
         let user = JSON.parse(localStorage.getItem("currentUser"));

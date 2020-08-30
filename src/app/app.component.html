@@ -4,9 +4,10 @@
   rel="stylesheet"
   type="text/css"
 />
-<app-header [translation]="translation"></app-header>
+{{ translation?.globals.title }}
+<app-header></app-header>
 <div class="pagebody">
   <app-banner *ngIf="router.url == '/'"></app-banner>
   <router-outlet></router-outlet>
-  <app-footer [translation]="translation"></app-footer>
+  <app-footer></app-footer>
 </div>

@@ -42,8 +42,11 @@ export class RegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    public translationService: TranslationService
-  ) {}
+    private translationService: TranslationService
+  ) {
+    this.translation = this.translationService.getTranslation();
+    console.warn(this.translation);
+  }
 
   registrationForm = this.fb.group({
     id: [""],
@@ -73,7 +76,6 @@ export class RegistrationComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.translation = JSON.parse(sessionStorage.getItem("translation"));
     this.registration_id = this.activatedRoute.snapshot.params.registration_id;
 
     if (this.registration_id != undefined) {

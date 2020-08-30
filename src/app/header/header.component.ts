@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { AuthService } from "../services/auth.service";
 import { Subscription } from "rxjs";
@@ -10,7 +10,6 @@ import { CollectionService } from "../services/collection.service";
   styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent implements OnInit {
-  @Input() translation: any;
   currentUserSubscription: Subscription;
   isLoggedIn = null;
   isCreator = false;
