@@ -18,6 +18,8 @@ import { httpInterceptorProviders } from "./http-interceptors/index";
 import { DndDirective } from "./directives/dnd.directive";
 
 import { HttpModule } from "@angular/http";
+import { LanguageSwitcherComponent } from "./language-switcher/language-switcher.component";
+import { TranslationService } from "./services/translation.service";
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { HttpModule } from "@angular/http";
     BannerComponent,
     PageNotFoundComponent,
     DndDirective,
+    LanguageSwitcherComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,7 @@ import { HttpModule } from "@angular/http";
     AppRoutingModule,
     HttpModule,
   ],
-  providers: [Title, httpInterceptorProviders],
+  providers: [Title, httpInterceptorProviders, TranslationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { TranslationService } from "./../services/translation.service";
 
 @Component({
   selector: "app-footer",
@@ -6,7 +7,12 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./footer.component.css"],
 })
 export class FooterComponent implements OnInit {
-  constructor() {}
+  translation: any;
+  constructor(private translationService: TranslationService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.translationService.getTranslation().subscribe((result) => {
+      this.translation = result;
+    });
+  }
 }

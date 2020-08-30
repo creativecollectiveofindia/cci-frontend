@@ -3,6 +3,7 @@ import { Title } from "@angular/platform-browser";
 import { AuthService } from "../services/auth.service";
 import { Subscription } from "rxjs";
 import { CollectionService } from "../services/collection.service";
+import { TranslationService } from "./../services/translation.service";
 
 @Component({
   selector: "app-header",
@@ -15,11 +16,13 @@ export class HeaderComponent implements OnInit {
   isCreator = false;
   isReviewer = false;
   challenges: any = [];
+  translation: any;
 
   constructor(
     private CollectionService: CollectionService,
     private titleService: Title,
-    private authService: AuthService
+    private authService: AuthService,
+    private translationService: TranslationService
   ) {
     this.currentUserSubscription = this.authService.currentUser.subscribe(
       (user) => {
@@ -37,6 +40,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.translationService.getTranslation().subscribe((result) => {
+      this.translation = result;
+    });
     this.getChallengeData();
   }
 

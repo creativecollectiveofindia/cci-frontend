@@ -1,6 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { CollectionService } from "../../services/collection.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { TranslationService } from "../../services/translation.service";
+import {
+  faFacebookSquare,
+  faTwitterSquare,
+  faInstagramSquare,
+  faWhatsappSquare,
+  faLinkedin,
+  faTelegram,
+} from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faPrint, faSms } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-published-detail",
@@ -13,15 +23,79 @@ export class PublishedDetailComponent implements OnInit {
   categoryDetail: any = [];
   submissionFiles: any = [];
   submissionId = "";
+  translation: any;
+  pageurl: string;
+  faFacebook = faFacebookSquare;
+  faTwitter = faTwitterSquare;
+  faInstagram = faInstagramSquare;
+  faWhatsapp = faWhatsappSquare;
+  faLinkedIn = faLinkedin;
+  faEnvelopeSquare = faEnvelope;
+  faPrint = faPrint;
+  faSms = faSms;
+  faTelegram = faTelegram;
 
   constructor(
     private CollectionService: CollectionService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public translationService: TranslationService
   ) {}
 
   ngOnInit() {
+    this.pageurl = encodeURIComponent(window.location.href);
+    this.translationService.getTranslation().subscribe((result) => {
+      this.translation = result;
+    });
     this.submissionId = this.activatedRoute.snapshot.params.submission_id;
     this.getSubmission();
+  }
+
+  share(platform) {
+    switch (platform) {
+      case "facebook":
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${this.pageurl}`
+        );
+        break;
+      case "twitter":
+        window.open(
+          `https://twitter.com/share?url=${this.pageurl}&text=${this.submissionDetail.title}&via=CCI_2020&hashtags=cci,COVID19`
+        );
+        break;
+      case "linkedin":
+        window.open(
+          `https://www.linkedin.com/sharing/share-offsite/?url=${this.pageurl}`
+        );
+        break;
+      case "whatsapp":
+        window.open(`whatsapp://send?text=${this.pageurl}`);
+        break;
+      case "email":
+        window.open(
+          `mailto:?subject=${this.submissionDetail.title}&body=${this.submissionDetail.title} ${this.pageurl}`
+        );
+        break;
+      case "gmail":
+        window.open(
+          `https://mail.google.com/mail/?view=cm&su=${this.submissionDetail.title}&body=${this.submissionDetail.title} ${this.pageurl}`
+        );
+        break;
+      case "sms":
+        window.open(
+          `sms:99999999?body=${this.submissionDetail.title}${this.pageurl}`
+        );
+        break;
+      case "telegram":
+        window.open(
+          `https://telegram.me/share/url?url=${this.pageurl}&text=${this.submissionDetail.title}`
+        );
+        break;
+      case "print":
+        window.print();
+        break;
+      default:
+        break;
+    }
   }
 
   getSubmission() {

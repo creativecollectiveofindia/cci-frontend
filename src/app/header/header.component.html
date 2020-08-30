@@ -5,10 +5,13 @@
       href="https://creativecollectiveofindia.org/"
       (click)="setPageTitle('CCI')"
     >
-      <img src="assets/images/logo.png" alt="Angular Project" />
+      <img src="assets/images/logo.png" alt="CCI" />
     </a>
+    <app-language-switcher
+      class="d-block d-sm-none ml-auto"
+    ></app-language-switcher>
     <button
-      class="navbar-toggler"
+      class="navbar-toggler ml-2"
       type="button"
       data-toggle="collapse"
       data-target="#navbarCollapse"
@@ -18,7 +21,8 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+    <div class="collapse navbar-collapse ml-auto" id="navbarCollapse">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="isCreator">
           <a
@@ -26,7 +30,7 @@
             routerLinkActive="active"
             class="nav-link"
             (click)="setPageTitle('New Submission')"
-            >New Submission</a
+            >{{ translation?.links.newSubmission }}</a
           >
         </li>
         <li class="nav-item" *ngIf="isCreator || isReviewer">
@@ -35,7 +39,7 @@
             routerLinkActive="active"
             class="nav-link"
             (click)="setPageTitle('View Submissions')"
-            >View Submissions</a
+            >{{ translation?.links.viewSubmission }}</a
           >
         </li>
         <li class="nav-item">
@@ -44,7 +48,7 @@
             routerLinkActive="active"
             class="nav-link"
             (click)="setPageTitle('Featured Content')"
-            >Featured Content</a
+            >{{ translation?.links.featuredContent }}</a
           >
         </li>
         <li class="nav-item dropdown">
@@ -55,23 +59,23 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false"
-            >Toolkit</a
+            >{{ translation?.links.toolkit }}</a
           >
           <div class="dropdown-menu" id="dropdownMenu">
             <a
               class="dropdown-item"
               href="https://creativecollectiveofindia.org/homepage/creative-brief"
-              >Creative Brief</a
+              >{{ translation?.links.creativeBrief }}</a
             >
             <a
               class="dropdown-item"
               href="https://creativecollectiveofindia.org/homepage/creative-process"
-              >How To Participate</a
+              >{{ translation?.links.howToParticipate }}</a
             >
             <a
               class="dropdown-item"
               href="https://creativecollectiveofindia.org/homepage/faq-s"
-              >FAQ's</a
+              >{{ translation?.links.faqs }}</a
             >
           </div>
         </li>
@@ -84,7 +88,7 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false"
-            >Challenges</a
+            >{{ translation?.links.challenges }}</a
           >
           <div class="dropdown-menu" id="dropdownMenu">
             <a
@@ -100,7 +104,7 @@
           <a
             href="https://creativecollectiveofindia.org/get-in-touch"
             class="nav-link"
-            >Get in touch</a
+            >{{ translation?.links.getinTouch }}</a
           >
         </li>
 
@@ -109,14 +113,18 @@
             href="http://creativecollectiveofindia.org/"
             class="nav-link"
             (click)="setPageTitle('CCI - Home')"
-            >Home</a
+            >{{ translation?.links.home }}</a
           >
         </li>
         <li class="nav-item" *ngIf="!isLoggedIn">
-          <a routerLink="/login" class="nav-link">Login</a>
+          <a routerLink="/login" class="nav-link">{{
+            translation?.links.login
+          }}</a>
         </li>
         <li class="nav-item" *ngIf="!isLoggedIn">
-          <a routerLink="/registration" class="nav-link">Register</a>
+          <a routerLink="/registration" class="nav-link">{{
+            translation?.links.register
+          }}</a>
         </li>
         <!-- <li class="nav-item" *ngIf="isLoggedIn">
           <a routerLink="/admin" class="nav-link">Admin Dashboard</a>
@@ -136,12 +144,17 @@
             <a
               routerLink="/registration/{{ isLoggedIn.data.user.id }}"
               class="dropdown-item"
-              >Edit profile</a
+              >{{ translation?.links.editProfile }}</a
             >
-            <a routerLink="/login" class="dropdown-item">Logout</a>
+            <a routerLink="/login" class="dropdown-item">{{
+              translation?.links.logout
+            }}</a>
           </div>
         </li>
       </ul>
     </div>
+    <app-language-switcher
+      class="d-none d-sm-block ml-3"
+    ></app-language-switcher>
   </div>
 </nav>
