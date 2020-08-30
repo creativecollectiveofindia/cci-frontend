@@ -79,3 +79,47 @@
   background-color: #fff;
   color: #fff;
 }
+.social {
+  display: flex;
+  justify-content: center;
+  color: #3333;
+}
+.social .icon {
+  margin: 0 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+.social .facebook {
+  color: #3b5998;
+}
+.social .twitter {
+  color: #00acee;
+}
+.social .linkedin {
+  color: #0e76a8;
+}
+.social .instagram {
+  color: #c13584;
+}
+.social .whatsapp {
+  color: #25d366;
+}
+.social .email {
+  color: #0072c6;
+}
+.social .telegram {
+  color: #0088cc;
+}
+.social .sms {
+  color: #5bc236;
+}
+.social .gmail {
+  width: 26px;
+  height: auto;
+  font-size: initial;
+  object-fit: contain;
+}
+
+.social .print {
+  color: #3f729b;
+}

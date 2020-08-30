@@ -104,7 +104,16 @@
     "language": "भाषा",
     "location": "स्थान",
     "region": "क्षेत्र",
-    "pages": "पृष्ठ"
+    "pages": "पृष्ठ",
+    "shareFacebook": "फेसबुक पर सांझा करें",
+    "shareTwitter": "ट्विटर पर साझा करें",
+    "shareLinkedIn": "लिंक्डइन पर साझा करें",
+    "shareWhatsapp": "व्हाट्सएप पर साझा करें",
+    "shareTelegram": "टेलीग्राम पर साझा करें",
+    "shareEmail": "ईमेल करें",
+    "shareGmail": "जीमेल से ईमेल करें",
+    "print": "पृष्ठ का मुद्रण कीजिए",
+    "sms": "एसएमएस से साझा करें"
   },
   "options": {
     "yes": "हाँ",

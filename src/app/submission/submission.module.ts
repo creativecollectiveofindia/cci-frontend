@@ -8,6 +8,7 @@ import { SubmissionListComponent } from "./submission-list/submission-list.compo
 import { SubmissionComponent } from "./submission/submission.component";
 import { PublishedListComponent } from "./published-list/published-list.component";
 import { PublishedDetailComponent } from "./published-detail/published-detail.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PublishedDetailComponent } from "./published-detail/published-detail.co
     BrowserModule,
     ReactiveFormsModule,
     SubmissionRoutingModule,
+    FontAwesomeModule,
   ],
   declarations: [
     SubmissionFormComponent,

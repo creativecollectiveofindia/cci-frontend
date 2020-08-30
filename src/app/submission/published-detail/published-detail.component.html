@@ -3,6 +3,64 @@
     <div class="col-sm-12 col-md-8 center review-heading">
       <h1>{{ translation?.headings.contentDetails }}</h1>
     </div>
+    <div class="col-sm-12 col-md-8 center social">
+      <fa-icon
+        [icon]="faFacebook"
+        class="icon facebook"
+        (click)="share('facebook')"
+        [title]="translation?.labels.shareFacebook"
+      >
+      </fa-icon>
+      <fa-icon
+        [icon]="faTwitter"
+        class="icon twitter"
+        (click)="share('twitter')"
+        [title]="translation?.labels.shareTwitter"
+      ></fa-icon>
+      <fa-icon
+        [icon]="faLinkedIn"
+        class="icon linkedin"
+        (click)="share('linkedin')"
+        [title]="translation?.labels.shareLinkedIn"
+      ></fa-icon>
+      <fa-icon
+        [icon]="faWhatsapp"
+        class="icon whatsapp"
+        (click)="share('whatsapp')"
+        [title]="translation?.labels.shareWhatsapp"
+      ></fa-icon>
+      <fa-icon
+        [icon]="faTelegram"
+        class="icon telegram"
+        (click)="share('telegram')"
+        [title]="translation?.labels.shareTelegram"
+      ></fa-icon>
+
+      <fa-icon
+        [icon]="faEnvelopeSquare"
+        class="icon email"
+        (click)="share('email')"
+        [title]="translation?.labels.shareEmail"
+      ></fa-icon>
+      <img
+        src="assets/images/gmail.png"
+        class="icon gmail"
+        (click)="share('gmail')"
+        [title]="translation?.labels.shareGmail"
+      />
+      <fa-icon
+        [icon]="faPrint"
+        class="icon print"
+        (click)="share('print')"
+        [title]="translation?.labels.print"
+      ></fa-icon>
+      <fa-icon
+        [icon]="faSms"
+        class="icon sms"
+        (click)="share('sms')"
+        [title]="translation?.labels.sms"
+      ></fa-icon>
+    </div>
     <div class="col-sm-12 col-md-8 center">
       <div class="box">
         <div class="submission-content">

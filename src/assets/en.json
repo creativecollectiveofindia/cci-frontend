@@ -104,7 +104,16 @@
     "language": "Language",
     "location": "Location",
     "region": "Region",
-    "pages": "Pages"
+    "pages": "Pages",
+    "shareFacebook": "Share on Facebook",
+    "shareTwitter": "Share on Twitter",
+    "shareLinkedIn": "Share on LinkedIn",
+    "shareWhatsapp": "Share on Whatsapp",
+    "shareTelegram": "Share on Telegram",
+    "shareEmail": "Email",
+    "shareGmail": "Email this using Gmail",
+    "print": "Print this page",
+    "sms": "SMS this page"
   },
   "options": {
     "yes": "Yes",
