@@ -953,10 +953,13 @@ export class SubmissionFormComponent implements OnInit {
     });
   }
 
-  getChallenges(event) {
+  getChallenges(eventObj) {
+    this.submissionForm.controls["challenge_category"].setValue(eventObj.target.value);
+    this.submissionForm.controls["challenge"].setValue("");
+
     this.CollectionService.getItems(
       "creative_challenge",
-      "?filter[category][eq]=" + event.target.value
+      "?filter[category][eq]=" + eventObj.target.value
     ).subscribe((challengeResult) => {
       this.topics = challengeResult.data;
     });
